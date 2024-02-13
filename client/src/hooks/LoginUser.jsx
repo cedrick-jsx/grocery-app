@@ -18,7 +18,7 @@ export default function LoginUser() {
 
     axios
       .post(
-        URL + `${isLogin ? "login" : !isLogin && "signup"}`,
+        URL + `${isLogin ? "/login" : !isLogin && "/signup"}`,
         isLogin ? { email, password } : !isLogin && { email, name, password }
       )
       .then((response) => {
