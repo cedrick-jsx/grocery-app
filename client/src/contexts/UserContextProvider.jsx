@@ -1,9 +1,9 @@
 import { createContext, useEffect, useReducer } from "react";
-import UserReducer from "../hooks/UserReducer";
+import { UserReducer, userStatus } from "../hooks/UserReducer";
 
-export const userLogin = createContext();
+export const UserContext = createContext();
 
-export default function UserContextProvider(props) {
+export const UserContextProvider = (props) => {
   const URL = "http://localhost:4000/api/user/";
 
   const [state, dispatch] = useReducer(UserReducer, {
@@ -11,16 +11,15 @@ export default function UserContextProvider(props) {
   });
 
   useEffect(() => {
-    const userLog = JSON.parse(sessionStorage.getItem("userLog"));
-
-    if (userLog) {
-      dispatch({ type: "LOGIN", payload: userLog });
+    if (sessionStorage.userLog) {
+      const userLog = JSON.parse(sessionStorage.getItem("userLog"));
+      dispatch({ type: userStatus.LOGIN, payload: userLog });
     }
   }, []);
 
   return (
-    <userLogin.Provider value={{ ...state, dispatch, URL }}>
+    <UserContext.Provider value={{ ...state, dispatch, URL }}>
       {props.children}
-    </userLogin.Provider>
+    </UserContext.Provider>
   );
-}
+};

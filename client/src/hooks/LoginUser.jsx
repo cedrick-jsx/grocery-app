@@ -1,7 +1,8 @@
 import { useContext, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
-import { userLogin } from "../contexts/UserContextProvider";
+import { UserContext } from "../contexts/UserContextProvider";
+import { userStatus } from "./UserReducer";
 
 export default function LoginUser() {
   const navigate = useNavigate("");
@@ -9,7 +10,7 @@ export default function LoginUser() {
   const [isError, setIsError] = useState("");
   const [isLoading, setIsLoading] = useState("");
 
-  const { dispatch, URL } = useContext(userLogin);
+  const { dispatch, URL } = useContext(UserContext);
 
   const login = (email, name, password, isLogin) => {
     setIsError("");
@@ -23,7 +24,7 @@ export default function LoginUser() {
       .then((response) => {
         if (isLogin) {
           dispatch({
-            type: "LOGIN",
+            type: userStatus.LOGIN,
             payload: response.data,
           });
 
@@ -32,9 +33,10 @@ export default function LoginUser() {
           setIsLoading(false);
         } else if (!isLogin) {
           setIsError("Success");
+
           setTimeout(() => {
             navigate("/");
-          }, 3000);
+          }, 1000);
         }
       })
       .catch((err) => {

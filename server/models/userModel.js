@@ -65,13 +65,13 @@ userSchema.statics.signup = async function (email, name, password) {
 
 userSchema.statics.login = async function (email, password) {
   if (!email && !password) {
-    throw Error("Field is empty");
+    throw Error("All Fields are Empty");
   }
   if (!email && password) {
-    throw Error("Email is empty");
+    throw Error("Email is Empty");
   }
   if (email && !password) {
-    throw Error("Password is empty");
+    throw Error("Password is Empty");
   }
 
   const user = await this.findOne({ email });

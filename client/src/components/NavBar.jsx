@@ -2,10 +2,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "./Header";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { useContext } from "react";
-import { userLogin } from "../contexts/UserContextProvider";
+import { UserContext } from "../contexts/UserContextProvider";
+import { userStatus } from "../hooks/UserReducer";
 
 export default function NavBar() {
-  const user = useContext(userLogin);
+  const { dispatch } = useContext(UserContext);
   const userName = JSON.parse(sessionStorage.userLog);
 
   return (
@@ -19,7 +20,7 @@ export default function NavBar() {
 
         <button
           onClick={() => {
-            user.dispatch({ type: "LOGOUT" });
+            dispatch({ type: userStatus.LOGOUT });
             sessionStorage.clear();
           }}
         >
