@@ -4,7 +4,7 @@ import { UserReducer, userStatus } from "../hooks/UserReducer";
 export const UserContext = createContext();
 
 export const UserContextProvider = (props) => {
-  const URL = "https://grocery-app-server.vercel.app/api/user/";
+  const URL = "https://grocery-app-server.vercel.app/api/user";
 
   const [state, dispatch] = useReducer(UserReducer, {
     user: null,
@@ -18,7 +18,7 @@ export const UserContextProvider = (props) => {
         dispatch({ type: userStatus.LOGIN, payload: userLog });
       }
     } catch (error) {
-      console.log("error");
+      console.log(error);
     }
   }, []);
 
