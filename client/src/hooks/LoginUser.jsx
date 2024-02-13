@@ -1,8 +1,7 @@
 import { useContext, useState } from "react";
 import axios from "axios";
-
 import { useNavigate } from "react-router";
-import { userContext } from "../contexts/usersContext";
+import { userLogin } from "../contexts/UserContextProvider";
 
 export default function LoginUser() {
   const navigate = useNavigate("");
@@ -10,7 +9,7 @@ export default function LoginUser() {
   const [isError, setIsError] = useState("");
   const [isLoading, setIsLoading] = useState("");
 
-  const { dispatch, URL } = useContext(userContext);
+  const { dispatch, URL } = useContext(userLogin);
 
   const login = (email, name, password, isLogin) => {
     setIsError("");

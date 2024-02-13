@@ -1,6 +1,7 @@
-import { useEffect, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
 import UserReducer from "../hooks/UserReducer";
-import { userContext } from "./usersContext";
+
+export const userLogin = createContext();
 
 export default function UserContextProvider(props) {
   const URL = "http://localhost:4000/api/user/";
@@ -10,16 +11,16 @@ export default function UserContextProvider(props) {
   });
 
   useEffect(() => {
-    const user = JSON.parse(sessionStorage.getItem("userLog"));
+    const userLog = JSON.parse(sessionStorage.getItem("userLog"));
 
-    if (user) {
-      dispatch({ type: "LOGIN", payload: user });
+    if (userLog) {
+      dispatch({ type: "LOGIN", payload: userLog });
     }
   }, []);
 
   return (
-    <userContext.Provider value={{ ...state, dispatch, URL }}>
+    <userLogin.Provider value={{ ...state, dispatch, URL }}>
       {props.children}
-    </userContext.Provider>
+    </userLogin.Provider>
   );
 }

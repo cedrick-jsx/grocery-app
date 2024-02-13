@@ -2,10 +2,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "./Header";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { useContext } from "react";
-import { userContext } from "../contexts/usersContext";
+import { userLogin } from "../contexts/UserContextProvider";
 
 export default function NavBar() {
-  const user = useContext(userContext);
+  const user = useContext(userLogin);
   const userName = JSON.parse(sessionStorage.userLog);
 
   return (
