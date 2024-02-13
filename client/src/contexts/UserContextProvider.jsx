@@ -4,7 +4,7 @@ import { UserReducer, userStatus } from "../hooks/UserReducer";
 export const UserContext = createContext();
 
 export const UserContextProvider = (props) => {
-  const URL = "http://localhost:4000/api/user/";
+  const URL = "https://cedrick-grocery-app.vercel.app/api/user/";
 
   const [state, dispatch] = useReducer(UserReducer, {
     user: null,
