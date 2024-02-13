@@ -10,12 +10,16 @@ const app = express();
 
 app.use(cors(
   {
-    origin:["https://cedrick-grocery-app.vercel.app"],
+    origin:"https://cedrick-grocery-app.vercel.app",
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   }
 ));
-app.options('*', cors());
+app.options('*', (request, response) => {
+  response.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  response.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  response.sendStatus(200);
+});
 
 app.use(express.json());
 app.use("/api/user", userRoute);
