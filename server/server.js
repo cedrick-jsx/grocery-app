@@ -8,18 +8,7 @@ const PORT = process.env.PORT;
 const MONGO_URI = process.env.MONGO_URI;
 const app = express();
 
-app.use(cors(
-  {
-    origin:"https://cedrick-grocery-app.vercel.app/account",
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-  }
-));
-app.options('*', (request, response) => {
-  response.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  response.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  response.sendStatus(200);
-});
+app.use(cors());
 
 app.use(express.json());
 app.use("/api/user", userRoute);
