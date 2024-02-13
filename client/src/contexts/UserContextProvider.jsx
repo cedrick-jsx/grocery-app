@@ -11,8 +11,9 @@ export const UserContextProvider = (props) => {
   });
 
   useEffect(() => {
-    if (sessionStorage.userLog) {
-      const userLog = JSON.parse(sessionStorage.getItem("userLog"));
+    const userLog = JSON.parse(sessionStorage.getItem("userLog"));
+
+    if (userLog) {
       dispatch({ type: userStatus.LOGIN, payload: userLog });
     }
   }, []);
