@@ -10,7 +10,7 @@ const app = express();
 
 app.use(cors(
   {
-    origin:"https://cedrick-grocery-app.vercel.app",
+    origin:"https://cedrick-grocery-app.vercel.app/account",
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   }
