@@ -11,10 +11,14 @@ export const UserContextProvider = (props) => {
   });
 
   useEffect(() => {
-    const userLog = JSON.parse(sessionStorage.getItem("userLog"));
+    try {
+      const userLog = JSON.parse(sessionStorage.getItem("userLog"));
 
-    if (userLog) {
-      dispatch({ type: userStatus.LOGIN, payload: userLog });
+      if (userLog) {
+        dispatch({ type: userStatus.LOGIN, payload: userLog });
+      }
+    } catch (error) {
+      console.log("error");
     }
   }, []);
 
