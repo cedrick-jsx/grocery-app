@@ -1,6 +1,6 @@
 import { useEffect, useReducer } from "react";
 import UserReducer from "../hooks/UserReducer";
-import { userContext } from "./UserContext";
+import { userContext } from "./usersContext";
 
 export default function UserContextProvider(props) {
   const URL = "http://localhost:4000/api/user/";

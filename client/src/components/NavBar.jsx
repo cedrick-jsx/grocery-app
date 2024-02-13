@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "./Header";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { useContext } from "react";
-import { userContext } from "../contexts/UserContext";
+import { userContext } from "../contexts/usersContext";
 
 export default function NavBar() {
   const user = useContext(userContext);

@@ -3,7 +3,7 @@ import Home from "./pages/Home";
 import Account from "./pages/Account";
 import NavBar from "./components/NavBar";
 import { useContext } from "react";
-import { userContext } from "./contexts/UserContext";
+import { userContext } from "./contexts/usersContext";
 
 export default function App() {
   const login = useContext(userContext);
