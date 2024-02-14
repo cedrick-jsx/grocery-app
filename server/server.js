@@ -23,3 +23,7 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+
+app.get("/", (request, response) => {
+  response.send("Server is running");
+});
