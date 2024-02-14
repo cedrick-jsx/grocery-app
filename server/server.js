@@ -6,18 +6,24 @@ const userRoute = require("./routes/userRoute.js");
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [/^http:\/\/localhost:\d+$/, /^https?:\/\/[\w\d-]+\.vercel\.app$/],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use("/api/user", userRoute);
-
-app.get("/api/server", (request, response) => {
-  response.status(200).json({ message: "Server is running" });
-});
 
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
-    console.log("Connected to Database");
+    app.listen(process.env.PORT, () => {
+      console.log("Connected to Database");
+      console.log("Listening on Port", process.env.PORT);
+    });
   })
   .catch((err) => {
     console.log(err);
