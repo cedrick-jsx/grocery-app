@@ -6,11 +6,18 @@ const userRoute = require("./routes/userRoute.js");
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    allowedHeaders: "*",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use("/api/user", userRoute);
 
-app.get("/api/server", (request, response) => {
+app.get("", (request, response) => {
   response.status(200).json({ message: "Server is running" });
 });
 
