@@ -3,17 +3,12 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const userRoute = require("./routes/userRoute.js");
+const allowCors = require("./middlewares/allowAllCors.js");
 
 const app = express();
 
-app.use(
-  cors({
-    origin: "*",
-    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
-    allowedHeaders: "*",
-    credentials: true,
-  })
-);
+app.use(allowCors);
+app.use(cors());
 app.use(express.json());
 app.use("/api/user", userRoute);
 
