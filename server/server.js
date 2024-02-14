@@ -8,9 +8,7 @@ const PORT = process.env.PORT;
 const MONGO_URI = process.env.MONGO_URI;
 const app = express();
 
-app.use(cors({
-  origin: '*'
-}));
+app.use(cors());
 
 app.use(express.json());
 app.use("/api/user", userRoute);
@@ -18,9 +16,10 @@ app.use("/api/user", userRoute);
 mongoose
   .connect(MONGO_URI)
   .then(() => {
-    app.listen(PORT, () => {
+    app.listen(PORT, (request,response) => {
       console.log("Connected to Database");
       console.log("Listening on Port", PORT);
+      response.send("Server is running")
     });
   })
   .catch((err) => {
