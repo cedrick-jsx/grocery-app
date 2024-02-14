@@ -9,8 +9,13 @@ const MONGO_URI = process.env.MONGO_URI;
 const app = express();
 
 app.use(cors());
+
 app.use(express.json());
 app.use("/api/user", userRoute);
+
+app.get("/", (request, response) => {
+  response.send("Server is running");
+});
 
 mongoose
   .connect(MONGO_URI)
@@ -23,7 +28,3 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-
-app.get("/", (request, response) => {
-  response.send("Server is running");
-});
