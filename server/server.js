@@ -8,9 +8,9 @@ const app = express();
 
 app.use(
   cors({
-    origin: [/^http:\/\/localhost:\d+$/, /^https?:\/\/[\w\d-]+\.vercel\.app$/],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: "*",
     credentials: true,
   })
 );
