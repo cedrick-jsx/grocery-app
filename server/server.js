@@ -17,10 +17,7 @@ app.get("/api/server", (request, response) => {
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
-    app.listen(process.env.PORT, () => {
-      console.log("Connected to Database");
-      console.log("Listening on Port", process.env.PORT);
-    });
+    console.log("Connected to Database");
   })
   .catch((err) => {
     console.log(err);
