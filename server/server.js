@@ -17,7 +17,7 @@ app.use(
 app.use(express.json());
 app.use("/api/user", userRoute);
 
-app.get("", (request, response) => {
+app.get("/", (request, response) => {
   response.status(200).json({ message: "Server is running" });
 });
 
