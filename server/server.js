@@ -13,10 +13,6 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/user", userRoute);
 
-app.get("/", (request, response) => {
-  response.status(200).json({ message: "Server is running" });
-});
-
 mongoose
   .connect(MONGO_URI)
   .then(() => {
