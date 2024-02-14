@@ -16,12 +16,16 @@ app.use("/api/user", userRoute);
 mongoose
   .connect(MONGO_URI)
   .then(() => {
-    app.listen(PORT, (request,response) => {
+    app.listen(PORT, () => {
       console.log("Connected to Database");
       console.log("Listening on Port", PORT);
-      response.send("Server is running")
     });
   })
   .catch((err) => {
     console.log(err);
   });
+
+app.get("/", (request, response) => {
+  response.send("Server is running");
+});
+
