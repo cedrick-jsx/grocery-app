@@ -1,10 +1,9 @@
-import { createContext, useEffect, useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { UserReducer, userStatus } from "../hooks/UserReducer";
-
-export const UserContext = createContext();
+import { UserContext } from "./CreatedContext";
 
 export const UserContextProvider = (props) => {
-  const URL = "https://grocery-app-server.vercel.app/api/user/";
+  const URL = "http://localhost:4000/api/user/";
 
   const [state, dispatch] = useReducer(UserReducer, {
     user: null,

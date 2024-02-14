@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
-import { UserContext } from "../contexts/UserContextProvider";
 import { userStatus } from "./UserReducer";
+import { UserContext } from "../contexts/CreatedContext";
 
 export default function LoginUser() {
   const navigate = useNavigate("");
