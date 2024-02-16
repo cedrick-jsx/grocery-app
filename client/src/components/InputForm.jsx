@@ -1,9 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
+  faFloppyDisk,
   faLock,
   faRightToBracket,
   faUser,
+  faUserPen,
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -19,7 +21,12 @@ export default function InputForm(props) {
           type={props.type}
           value={props.user}
           placeholder={props.placeholder}
-          disabled={props.isError === "Success" && true}
+          disabled={
+            (props.isError === "Success" ||
+              props.editUser === "email" ||
+              props.editUser === false) &&
+            true
+          }
           autoComplete="false"
           spellCheck="false"
           className={`border-slate-50 placeholder:text-green-700 placeholder:font-light focus:outline-none focus:ring-1 focus:ring-green-950 focus:border-green-950 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 w-full text-[1.2rem] leading-[2] p-[0_10px_0_40px] border-2 text-green-950 font-medium transition-all`}
@@ -52,6 +59,10 @@ export default function InputForm(props) {
             ? faRightToBracket
             : props.type === "submit" && props.value === "signup"
             ? faUserPlus
+            : props.type === "submit" && props.value === "save"
+            ? faFloppyDisk
+            : props.type === "submit" && props.value === "edit"
+            ? faUserPen
             : props.type === "text" && faUser
         }
         className={`${

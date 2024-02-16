@@ -2,10 +2,8 @@ require("dotenv").config();
 const user = require("../models/userModel.js");
 const jwt = require("jsonwebtoken");
 
-const SECRET = process.env.SECRET;
-
 const createToken = (_id) => {
-  return jwt.sign({ _id }, SECRET, {
+  return jwt.sign({ _id }, process.env.SECRET, {
     expiresIn: "1d",
   });
 };

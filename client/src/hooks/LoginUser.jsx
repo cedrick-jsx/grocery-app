@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
-import { userStatus } from "./UserReducer";
 import { UserContext } from "../contexts/CreatedContext";
 
 export default function LoginUser() {
@@ -18,13 +17,13 @@ export default function LoginUser() {
 
     axios
       .post(
-        URL + `${isLogin ? "login" : !isLogin && "signup"}`,
+        URL + "user/" + `${isLogin ? "login" : !isLogin && "signup"}`,
         isLogin ? { email, password } : !isLogin && { email, name, password }
       )
       .then((response) => {
         if (isLogin) {
           dispatch({
-            type: userStatus.LOGIN,
+            type: "LOGIN",
             payload: response.data,
           });
 

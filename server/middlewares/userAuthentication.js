@@ -1,19 +1,21 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
-const user = require("../models/userModel.js");
+const userModel = require("../models/userModel.js");
 
 const userAuthentication = async (request, response, next) => {
-  const { Authorization } = request.headers;
+  const { authorization } = request.headers;
 
-  if (!Authorization) {
+  if (!authorization) {
     return response.status(400).json({ error: "Authorization Token Required" });
   }
 
-  const token = Authorization.split("")[1];
+  const token = authorization.split(" ")[1];
 
   try {
     const { _id } = jwt.verify(token, process.env.SECRET);
-    request.user = await user.findOne({ _id }).select("_id");
+
+    request.userModel = await userModel.findOne({ _id }).select("_id");
+
     next();
   } catch (err) {
     response.status(400).json({ error: "Unauthorized Request" });

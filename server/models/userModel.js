@@ -43,11 +43,16 @@ userSchema.statics.signup = async function (email, name, password) {
   if (!email && !name && password) {
     throw Error("2 Fields are Empty");
   }
-
-  if (!validator.isEmail(email) && email) {
+  if (!validator.isEmail(email)) {
     throw Error("Not a valid Email");
   }
-  if (!validator.isStrongPassword(password) && password) {
+  if (
+    !validator.isLength(name, { min: 2, max: 50 }) ||
+    !validator.isAlpha(name.replace(/[-' ]/g, ""))
+  ) {
+    throw Error("Invalid Name");
+  }
+  if (!validator.isStrongPassword(password)) {
     throw Error("Password is too weak");
   }
 

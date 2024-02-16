@@ -1,12 +1,20 @@
 import { faCartPlus, faList, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router";
 
 export default function Card(props) {
+  const navigate = useNavigate();
+
   return (
     <button
       className={
         "bg-sky-500 text-blue-950 transition-all [box-shadow:rgba(0,0,0,0.35)_0px_5px_15px] hover:[box-shadow:-10px_-10px_10px_0_#9EDDFF,-10px_-10px_0_3px_#332FD0] hover:translate-x-[10px] hover:translate-y-[10px] group/card"
       }
+      onClick={() => {
+        if (props.value === "details") {
+          navigate("/information");
+        }
+      }}
     >
       <div
         className={

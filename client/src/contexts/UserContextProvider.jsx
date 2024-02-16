@@ -1,9 +1,10 @@
 import { useEffect, useReducer } from "react";
-import { UserReducer, userStatus } from "../hooks/UserReducer";
+import { UserReducer } from "../hooks/UserReducer";
 import { UserContext } from "./CreatedContext";
 
 export const UserContextProvider = (props) => {
-  const URL = "https://grocery-app-server.vercel.app/api/user/";
+  // const URL = "https://grocery-app-server.vercel.app/api/";
+  const URL = "http://localhost:4000/api/";
 
   const [state, dispatch] = useReducer(UserReducer, {
     user: null,
@@ -13,7 +14,7 @@ export const UserContextProvider = (props) => {
     const userLog = JSON.parse(sessionStorage.getItem("userLog"));
 
     if (userLog) {
-      dispatch({ type: userStatus.LOGIN, payload: userLog });
+      dispatch({ type: "LOGIN", payload: userLog });
     }
   }, []);
 

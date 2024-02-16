@@ -1,17 +1,16 @@
 import { useState } from "react";
-import Form from "../components/Form";
 import Header from "../components/Header";
 import InputForm from "../components/InputForm";
 import LabelForm from "../components/LabelForm";
 import SpanError from "../components/SpanError";
 import LoginUser from "../hooks/LoginUser";
+import FormAccount from "../components/FormAccount";
 
 export default function Account() {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-
   const { login, isError, setIsError } = LoginUser();
 
   return (
@@ -25,7 +24,8 @@ export default function Account() {
           "w-2/4 flex flex-col place-content-center place-items-center relative"
         }
       >
-        <Form
+        <FormAccount
+          value="login"
           email={email}
           name={name}
           password={password}
@@ -98,7 +98,7 @@ export default function Account() {
           />
 
           {isError && <SpanError type="error">{isError}</SpanError>}
-        </Form>
+        </FormAccount>
       </div>
 
       <div
