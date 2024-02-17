@@ -1,9 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faAtom,
+  faBarcode,
+  faCartArrowDown,
   faEnvelope,
+  faFlask,
   faFloppyDisk,
   faLock,
   faRightToBracket,
+  faTag,
   faUser,
   faUserPen,
   faUserPlus,
@@ -23,6 +28,7 @@ export default function InputForm(props) {
           placeholder={props.placeholder}
           disabled={
             (props.isError === "Success" ||
+              props.isError === "Connecting" ||
               props.editUser === "email" ||
               props.editUser === false) &&
             true
@@ -40,11 +46,14 @@ export default function InputForm(props) {
         <input
           type={props.type}
           value={props.value}
-          disabled={props.isError === "Success" && true}
+          disabled={
+            (props.isError === "Success" || props.isError === "Connecting") &&
+            true
+          }
           className={`${
-            props.isError !== "Success"
+            props.isError !== "Success" || props.isError !== "Connecting"
               ? "group-hover:bg-green-950 group-hover:text-slate-50 cursor-pointer"
-              : "pointer-events-none"
+              : "pointer-events-none bg-green-950 text-slate-50"
           } bg-slate-50 border-green-950 uppercase font-bold w-full text-[1.2rem] leading-[2] p-[0_10px_0_40px] border-2 text-green-950 transition-all`}
         />
       )}
@@ -63,16 +72,26 @@ export default function InputForm(props) {
             ? faFloppyDisk
             : props.type === "submit" && props.value === "edit"
             ? faUserPen
-            : props.type === "text" && faUser
+            : props.type === "submit" && props.value === "add"
+            ? faCartArrowDown
+            : props.type === "number" && props.text === "many"
+            ? faAtom
+            : props.type === "text" && props.text === "product"
+            ? faTag
+            : props.type === "text" && props.text === "volume"
+            ? faFlask
+            : props.type === "text" && props.text === "info"
+            ? faBarcode
+            : props.type === "text" && props.text === "text" && faUser
         }
         className={`${
           props.type !== "submit"
             ? `pr-2 scale-150`
             : props.type === "submit" &&
               `${
-                props.isError === "Success"
+                props.isError === "Success" || props.isError === "Connecting"
                   ? "pointer-events-none"
-                  : "[animation:fa-fade_1000ms_infinite] group-hover:text-green-50 cursor-pointer"
+                  : "[animation:fa-fade_1000ms_infinite] group-hover:text-slate-50 cursor-pointer"
               } scale-125`
         } absolute top-2/4 left-4 -translate-y-2/4 text-green-900 transition-all`}
       />

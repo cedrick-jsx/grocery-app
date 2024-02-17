@@ -1,40 +1,44 @@
 import axios from "axios";
-import { useContext, useState } from "react";
-import { UserContext } from "../contexts/CreatedContext";
 
-export const SaveUserDeatails = () => {
-  const { user, dispatch, URL } = useContext(UserContext);
-  const [isError, setIsError] = useState("");
-  const tempUser = JSON.parse(sessionStorage.getItem("userLog"));
+export const SaveUserDetails = (
+  userDetails,
+  name,
+  password,
+  setEditUser,
+  URL,
+  user,
+  dispatch,
+  userStatus,
+  setIsError,
+  setPassword
+) => {
+  axios.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
 
-  const saveDetails = (userDetails, name, password, setEditUser) => {
-    setIsError("");
+  axios
+    .patch(URL + "account/" + userDetails._id, {
+      name,
+      password,
+    })
+    .then((response) => {
+      const tempUser = JSON.parse(sessionStorage.getItem("userLog"));
+      const updateUser = {
+        email: tempUser.email,
+        name: response.data,
+        token: tempUser.token,
+      };
 
-    axios.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
+      dispatch({ type: userStatus.LOGIN, payload: updateUser });
 
-    axios
-      .patch(URL + `account/${userDetails._id}`, {
-        name,
-        password,
-      })
-      .then((response) => {
-        const updateUser = {
-          email: tempUser.email,
-          name: response.data,
-          token: tempUser.token,
-        };
+      sessionStorage.setItem("userLog", JSON.stringify(updateUser));
 
-        setEditUser(() => false);
-
-        dispatch({ type: "LOGIN", payload: updateUser });
-
-        sessionStorage.setItem("userLog", JSON.stringify(updateUser));
-        setIsError("Success");
-      })
-      .catch((err) => {
-        setIsError(err.response.data.error);
-      });
-  };
-
-  return { saveDetails, isError, setIsError };
+      setIsError("Success");
+      setTimeout(() => {
+        setEditUser(false);
+        setIsError("");
+        setPassword("");
+      }, 1000);
+    })
+    .catch((err) => {
+      setIsError(err.response.data.error);
+    });
 };

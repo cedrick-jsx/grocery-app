@@ -1,17 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Header from "../components/Header";
 import InputForm from "../components/InputForm";
 import LabelForm from "../components/LabelForm";
 import SpanError from "../components/SpanError";
-import LoginUser from "../hooks/LoginUser";
 import FormAccount from "../components/FormAccount";
+import { UserContext } from "../contexts/CreatedContext";
 
 export default function Account() {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const { login, isError, setIsError } = LoginUser();
+  const { isError, setIsError } = useContext(UserContext);
 
   return (
     <section
@@ -29,7 +29,6 @@ export default function Account() {
           email={email}
           name={name}
           password={password}
-          login={login}
           isLogin={isLogin}
           setIsLogin={setIsLogin}
         >
@@ -74,6 +73,7 @@ export default function Account() {
               <LabelForm>Name</LabelForm>
               <InputForm
                 type="text"
+                text="text"
                 placeholder="Cedrick"
                 user={name}
                 setUser={setName}

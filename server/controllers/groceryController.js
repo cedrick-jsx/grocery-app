@@ -10,7 +10,7 @@ const postUserGrocery = async (request, response) => {
     }
 
     if (!mongoose.Types.ObjectId.isValid(user_id)) {
-      return response.status(200).json({ error: "Invalid ID" });
+      throw Error("Invalid ID");
     }
 
     const grocery = await grocerySchema.create({
@@ -32,7 +32,7 @@ const getUserGrocery = async (request, response) => {
 
   try {
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      return response.status(200).json({ error: "Invalid ID" });
+      throw Error({ error: "Invalid ID" });
     }
 
     const grocery = await grocerySchema
@@ -40,7 +40,7 @@ const getUserGrocery = async (request, response) => {
       .sort({ createdAt: -1 });
 
     if (grocery.length === 0) {
-      return response.status(400).json({ error: "No Grocery Found" });
+      throw Error("No Grocery Found");
     }
 
     response.status(200).json(grocery);
@@ -59,7 +59,7 @@ const updateUserGrocery = async (request, response) => {
     }
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      return response.status(200).json({ error: "Invalid ID" });
+      throw Error("Invalid ID");
     }
 
     const grocery = await grocerySchema.findByIdAndUpdate(id, request.body, {
@@ -67,7 +67,7 @@ const updateUserGrocery = async (request, response) => {
     });
 
     if (!grocery) {
-      return response.status(400).json({ error: "No Grocery Found" });
+      throw Error("No Grocery Found");
     }
 
     response.status(200).json(grocery);
@@ -81,13 +81,13 @@ const deleteUserGrocery = async (request, response) => {
 
   try {
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      return response.status(200).json({ error: "Invalid ID" });
+      throw Error("Invalid ID");
     }
 
     const grocery = await grocerySchema.findByIdAndDelete(id);
 
     if (!grocery) {
-      return response.status(400).json({ error: "No Grocery Found" });
+      throw Error("No Grocery Found");
     }
 
     response.status(200).json(grocery);

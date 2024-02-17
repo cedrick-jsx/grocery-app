@@ -1,39 +1,34 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import FormAccount from "./FormAccount";
-import LabelForm from "./LabelForm";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/CreatedContext";
-import InputForm from "./InputForm";
-import Header from "./Header";
-import { SaveUserDeatails } from "../hooks/SaveUserDetails";
-import SpanError from "./SpanError";
+import FormAccount from "../components/FormAccount";
+import Header from "../components/Header";
+import LabelForm from "../components/LabelForm";
+import InputForm from "../components/InputForm";
+import SpanError from "../components/SpanError";
 
 export default function AccountDetails() {
   const [userDetails, setUserDetails] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [editUser, setEditUser] = useState(false);
-  const { user, URL } = useContext(UserContext);
-  const { saveDetails, isError, setIsError } = SaveUserDeatails();
+  const { user, URL, isError, setIsError } = useContext(UserContext);
 
   useEffect(() => {
-    try {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
+    axios.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
 
-      axios
-        .get(`${URL + "account/" + user.email}`)
-        .then((response) => {
-          setUserDetails(response.data);
-          setName(() => user.name);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } catch (err) {
-      console.log(err);
-    }
+    axios
+      .get(`${URL + "account/" + user.email}`)
+      .then((response) => {
+        setUserDetails(response.data);
+        setName(() => user.name);
+        setIsError("");
+      })
+      .catch((err) => {
+        setIsError(err);
+      });
   }, []);
 
   return (
@@ -45,10 +40,9 @@ export default function AccountDetails() {
         userDetails={userDetails}
         editUser={editUser}
         setEditUser={setEditUser}
-        saveDetails={saveDetails}
-        setIsError={setIsError}
         name={name}
         password={password}
+        setPassword={setPassword}
       >
         <Header value="grocery">Account Details</Header>
 
@@ -63,9 +57,11 @@ export default function AccountDetails() {
         <LabelForm>Name</LabelForm>
         <InputForm
           type="text"
+          text="text"
           editUser={editUser}
           user={name}
           setUser={setName}
+          isError={isError}
         />
 
         <LabelForm>Password</LabelForm>
@@ -75,9 +71,14 @@ export default function AccountDetails() {
           placeholder="New Password"
           user={password}
           setUser={setPassword}
+          isError={isError}
         />
 
-        <InputForm type="submit" value={editUser ? "save" : "edit"} />
+        <InputForm
+          type="submit"
+          value={editUser ? "save" : "edit"}
+          isError={isError}
+        />
 
         {isError && <SpanError type="error">{isError}</SpanError>}
       </FormAccount>

@@ -14,6 +14,10 @@ export default function Card(props) {
         if (props.value === "details") {
           navigate("/information");
         }
+
+        if (props.value === "add") {
+          navigate("/add");
+        }
       }}
     >
       <div

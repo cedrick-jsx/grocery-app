@@ -4,7 +4,8 @@ import Account from "./pages/Account";
 import NavBar from "./components/NavBar";
 import { useContext } from "react";
 import { UserContext } from "./contexts/CreatedContext";
-import AccountDetails from "./components/AccountDetails";
+import { AddGrocery } from "./pages/AddGrocery";
+import AccountDetails from "./pages/AccountDetails";
 
 export default function App() {
   const login = useContext(UserContext);
@@ -22,6 +23,11 @@ export default function App() {
         <Route
           path="/account"
           element={!login.user ? <Account /> : <Navigate to="/" />}
+        />
+
+        <Route
+          path="/add"
+          element={login.user ? <AddGrocery /> : <Navigate to="/" />}
         />
 
         <Route

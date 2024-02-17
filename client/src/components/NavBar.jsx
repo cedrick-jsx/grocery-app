@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { UserContext } from "../contexts/CreatedContext";
 
 export default function NavBar() {
-  const { user, dispatch } = useContext(UserContext);
+  const { user, dispatch, userStatus, setIsError } = useContext(UserContext);
 
   return (
     <nav
@@ -20,9 +20,10 @@ export default function NavBar() {
 
         <button
           onClick={() => {
-            dispatch({ type: "LOGOUT" });
+            dispatch({ type: userStatus.LOGOUT });
             sessionStorage.clear();
             localStorage.clear();
+            setIsError("");
           }}
         >
           <FontAwesomeIcon
