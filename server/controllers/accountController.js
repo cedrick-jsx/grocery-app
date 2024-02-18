@@ -26,19 +26,14 @@ const getUserAccount = async (request, response) => {
 const updateUserAccount = async (request, response) => {
   const { id } = request.params;
   const { name, password } = request.body;
+  let userAccount = "";
 
   try {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       throw Error("No Account Found");
     }
-    if (!name && !password) {
-      throw Error("All Fields are Empty");
-    }
     if (!name) {
       throw Error("Name is Empty");
-    }
-    if (!password) {
-      throw Error("Password is Empty");
     }
     if (
       !validator.isLength(name, { min: 2, max: 50 }) ||
@@ -46,20 +41,30 @@ const updateUserAccount = async (request, response) => {
     ) {
       throw Error("Invalid Name");
     }
-    if (!validator.isStrongPassword(password)) {
+    if (!validator.isStrongPassword(password) && password) {
       throw Error("Password is too weak");
     }
 
-    const hash = await bcrypt.hash(password, 10);
+    if (password) {
+      const hash = await bcrypt.hash(password, 10);
 
-    const userAccount = await userModel.findByIdAndUpdate(
-      id,
-      {
-        name,
-        password: hash,
-      },
-      { new: true }
-    );
+      userAccount = await userModel.findByIdAndUpdate(
+        id,
+        {
+          name,
+          password: hash,
+        },
+        { new: true }
+      );
+    } else if (!password) {
+      userAccount = await userModel.findByIdAndUpdate(
+        id,
+        { name },
+        {
+          new: true,
+        }
+      );
+    }
 
     if (!userAccount) {
       throw Error("No Account Found");

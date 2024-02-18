@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
-const validator = require("validator");
 
 const userSchema = new mongoose.Schema(
   {
@@ -20,78 +18,5 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
-userSchema.statics.signup = async function (email, name, password) {
-  if (!email && !name && !password) {
-    throw Error("All Fields are Empty");
-  }
-  if (!email && name && password) {
-    throw Error("Email is Empty");
-  }
-  if (email && !name && password) {
-    throw Error("Name is Empty");
-  }
-  if (email && name && !password) {
-    throw Error("Password is Empty");
-  }
-  if (email && !name && !password) {
-    throw Error("2 Fields are Empty");
-  }
-  if (!email && name && !password) {
-    throw Error("2 Fields are Empty");
-  }
-  if (!email && !name && password) {
-    throw Error("2 Fields are Empty");
-  }
-  if (!validator.isEmail(email)) {
-    throw Error("Not a valid Email");
-  }
-  if (
-    !validator.isLength(name, { min: 2, max: 50 }) ||
-    !validator.isAlpha(name.replace(/[-' ]/g, ""))
-  ) {
-    throw Error("Invalid Name");
-  }
-  if (!validator.isStrongPassword(password)) {
-    throw Error("Password is too weak");
-  }
-
-  const isEmailExist = await this.findOne({ email });
-
-  if (isEmailExist) {
-    throw Error("Email already in use");
-  }
-
-  const hash = await bcrypt.hash(password, 10);
-  const user = await this.create({ email, name, password: hash });
-
-  return user;
-};
-
-userSchema.statics.login = async function (email, password) {
-  if (!email && !password) {
-    throw Error("All Fields are Empty");
-  }
-  if (!email && password) {
-    throw Error("Email is Empty");
-  }
-  if (email && !password) {
-    throw Error("Password is Empty");
-  }
-
-  const user = await this.findOne({ email });
-
-  if (!user) {
-    throw Error("Email does not exist");
-  }
-
-  const isPasswordMatch = await bcrypt.compare(password, user.password);
-
-  if (!isPasswordMatch) {
-    throw Error("Incorrect Password");
-  }
-
-  return user;
-};
 
 module.exports = mongoose.model("user", userSchema);

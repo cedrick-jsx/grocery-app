@@ -51,10 +51,10 @@ export default function InputForm(props) {
             true
           }
           className={`${
-            props.isError !== "Success" || props.isError !== "Connecting"
-              ? "group-hover:bg-green-950 group-hover:text-slate-50 cursor-pointer"
-              : "pointer-events-none bg-green-950 text-slate-50"
-          } bg-slate-50 border-green-950 uppercase font-bold w-full text-[1.2rem] leading-[2] p-[0_10px_0_40px] border-2 text-green-950 transition-all`}
+            props.isError === "Success" || props.isError === "Connecting"
+              ? "pointer-events-none bg-green-950 text-slate-50"
+              : "group-hover:bg-green-950 group-hover:text-slate-50 bg-slate-50 text-green-950 cursor-pointer"
+          } border-green-950 uppercase font-bold w-full text-[1.2rem] leading-[2] p-[0_10px_0_40px] border-2 transition-all`}
         />
       )}
 
@@ -90,10 +90,10 @@ export default function InputForm(props) {
             : props.type === "submit" &&
               `${
                 props.isError === "Success" || props.isError === "Connecting"
-                  ? "pointer-events-none"
-                  : "[animation:fa-fade_1000ms_infinite] group-hover:text-slate-50 cursor-pointer"
+                  ? "pointer-events-none text-slate-50"
+                  : "[animation:fa-fade_1000ms_infinite] group-hover:text-slate-50 text-green-900 cursor-pointer"
               } scale-125`
-        } absolute top-2/4 left-4 -translate-y-2/4 text-green-900 transition-all`}
+        } absolute top-2/4 left-4 -translate-y-2/4 transition-all`}
       />
     </div>
   );

@@ -3,30 +3,19 @@ import FormAccount from "../components/FormAccount";
 import Header from "../components/Header";
 import InputForm from "../components/InputForm";
 import LabelForm from "../components/LabelForm";
-import { UserContext } from "../contexts/CreatedContext";
-import axios from "axios";
+import { GroceryContext, UserContext } from "../contexts/CreatedContext";
 import SpanError from "../components/SpanError";
 
 export const AddGrocery = () => {
-  const [userDetails, setUserDetails] = useState("");
   const [product, setProduct] = useState("");
   const [volume, setVolume] = useState("");
   const [quantity, setQuantity] = useState("");
   const [description, setDescription] = useState("");
-  const { user, URL, isError, setIsError } = useContext(UserContext);
+  const { isError, setIsError } = useContext(UserContext);
+  const { userGrocery } = useContext(GroceryContext);
 
   useEffect(() => {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
-
-    axios
-      .get(`${URL + "account/" + user.email}`)
-      .then((response) => {
-        setUserDetails(response.data);
-        setIsError("");
-      })
-      .catch((err) => {
-        setIsError(err);
-      });
+    setIsError("");
   }, []);
 
   return (
@@ -35,7 +24,7 @@ export const AddGrocery = () => {
     >
       <FormAccount
         value="add"
-        userDetails={userDetails}
+        userDetails={userGrocery}
         product={product}
         setProduct={setProduct}
         volume={volume}

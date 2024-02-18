@@ -1,8 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../contexts/CreatedContext";
+import { GroceryContext, UserContext } from "../contexts/CreatedContext";
 import FormAccount from "../components/FormAccount";
 import Header from "../components/Header";
 import LabelForm from "../components/LabelForm";
@@ -10,25 +9,15 @@ import InputForm from "../components/InputForm";
 import SpanError from "../components/SpanError";
 
 export default function AccountDetails() {
-  const [userDetails, setUserDetails] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [editUser, setEditUser] = useState(false);
-  const { user, URL, isError, setIsError } = useContext(UserContext);
+  const { user, isError, setIsError } = useContext(UserContext);
+  const { userGrocery } = useContext(GroceryContext);
 
   useEffect(() => {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
-
-    axios
-      .get(`${URL + "account/" + user.email}`)
-      .then((response) => {
-        setUserDetails(response.data);
-        setName(() => user.name);
-        setIsError("");
-      })
-      .catch((err) => {
-        setIsError(err);
-      });
+    setIsError("");
+    setName(() => user.name);
   }, []);
 
   return (
@@ -37,7 +26,7 @@ export default function AccountDetails() {
     >
       <FormAccount
         value="details"
-        userDetails={userDetails}
+        userDetails={userGrocery}
         editUser={editUser}
         setEditUser={setEditUser}
         name={name}

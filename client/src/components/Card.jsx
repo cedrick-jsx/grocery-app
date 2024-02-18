@@ -18,6 +18,10 @@ export default function Card(props) {
         if (props.value === "add") {
           navigate("/add");
         }
+
+        if (props.value === "view") {
+          navigate("/view");
+        }
       }}
     >
       <div

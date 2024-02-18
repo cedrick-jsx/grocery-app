@@ -6,33 +6,39 @@ import { useContext } from "react";
 import { UserContext } from "./contexts/CreatedContext";
 import { AddGrocery } from "./pages/AddGrocery";
 import AccountDetails from "./pages/AccountDetails";
+import { ViewGroceryList } from "./pages/ViewGroceryList";
 
 export default function App() {
-  const login = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   return (
     <BrowserRouter>
-      {login.user && <NavBar />}
+      {user && <NavBar />}
 
       <Routes>
         <Route
           path="/"
-          element={login.user ? <Home /> : <Navigate to="/account" />}
+          element={user ? <Home /> : <Navigate to="/account" />}
         />
 
         <Route
           path="/account"
-          element={!login.user ? <Account /> : <Navigate to="/" />}
+          element={!user ? <Account /> : <Navigate to="/" />}
+        />
+
+        <Route
+          path="/view"
+          element={user ? <ViewGroceryList /> : <Navigate to="/" />}
         />
 
         <Route
           path="/add"
-          element={login.user ? <AddGrocery /> : <Navigate to="/" />}
+          element={user ? <AddGrocery /> : <Navigate to="/" />}
         />
 
         <Route
           path="/information"
-          element={login.user ? <AccountDetails /> : <Navigate to="/" />}
+          element={user ? <AccountDetails /> : <Navigate to="/" />}
         />
       </Routes>
     </BrowserRouter>
