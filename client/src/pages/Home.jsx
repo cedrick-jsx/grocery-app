@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <section
       className={
-        "flex flex-wrap w-full p-[150px_5%] place-content-evenly place-items-center"
+        "flex flex-wrap w-full p-[5%] place-content-evenly place-items-center"
       }
     >
       <Card value="view">View Grocery</Card>

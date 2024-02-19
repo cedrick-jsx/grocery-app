@@ -17,6 +17,13 @@ const signupUser = async (request, response) => {
     if (!email && !name && !password) {
       throw Error("All Fields are Empty");
     }
+    if (
+      (email && !name && !password) ||
+      (!email && name && !password) ||
+      (!email && !name && password)
+    ) {
+      throw Error("2 Fields are Empty");
+    }
     if (!email && name && password) {
       throw Error("Email is Empty");
     }
@@ -26,17 +33,8 @@ const signupUser = async (request, response) => {
     if (email && name && !password) {
       throw Error("Password is Empty");
     }
-    if (email && !name && !password) {
-      throw Error("2 Fields are Empty");
-    }
-    if (!email && name && !password) {
-      throw Error("2 Fields are Empty");
-    }
-    if (!email && !name && password) {
-      throw Error("2 Fields are Empty");
-    }
     if (!validator.isEmail(email)) {
-      throw Error("Not a valid Email");
+      throw Error("Invalid Email");
     }
     if (
       !validator.isLength(name, { min: 2, max: 50 }) ||

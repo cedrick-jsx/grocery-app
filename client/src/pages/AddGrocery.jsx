@@ -19,9 +19,7 @@ export const AddGrocery = () => {
   }, []);
 
   return (
-    <section
-      className={"flex place-content-center place-items-center p-[150px_5%]"}
-    >
+    <section className={"flex place-content-center place-items-center p-[5%]"}>
       <FormAccount
         value="add"
         userDetails={userGrocery}
@@ -47,7 +45,7 @@ export const AddGrocery = () => {
         />
 
         <div className={"flex place-content-between place-items-center"}>
-          <div className={"w-2/6"}>
+          <div className={"w-2/4"}>
             <LabelForm>Volume</LabelForm>
             <InputForm
               type="text"

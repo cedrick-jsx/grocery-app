@@ -103,7 +103,7 @@ export default function Account() {
 
       <div
         className={
-          "bg-login bg-right bg-contain bg-no-repeat bg-fixed h-[100dvh] w-2/4 relative"
+          "bg-login bg-right bg-contain bg-no-repeat bg-fixed min-h-screen h-screen w-2/4 relative"
         }
       ></div>
     </section>

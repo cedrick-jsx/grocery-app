@@ -5,7 +5,7 @@ import Header from "../components/Header";
 import { formatDistanceToNow } from "date-fns";
 
 export const ViewGroceryList = () => {
-  const { user, URL, setIsError } = useContext(UserContext);
+  const { user, URL, isError, setIsError } = useContext(UserContext);
 
   const { grocery, userGrocery, dispatch, groceryStatus } =
     useContext(GroceryContext);
@@ -24,39 +24,36 @@ export const ViewGroceryList = () => {
       .catch((err) => {
         setIsError(err.response.data.error);
       });
-  }, []);
+  }, [dispatch]);
 
   return (
     <section
-      className={
-        "flex flex-col place-content-center place-items-center p-[150px_5%]"
-      }
+      className={"flex flex-col place-content-center place-items-center p-[5%]"}
     >
       <Header value="navbar">{user.name}'s Grocery List</Header>
 
-      <div className="flex flex-wrap w-full mt-12 gap-10">
-        {grocery ? (
-          grocery.map((grocery) => (
+      <div className="flex flex-wrap place-content-evenly w-full mt-12 gap-10">
+        {grocery &&
+          grocery.map((items) => (
             <div
-              key={grocery._id}
+              key={items._id}
               className={
                 "w-[500px] h-[220px] text-3xl [box-shadow:0_0_2px_2px_black] p-5"
               }
             >
-              <Sample>Product: {grocery.product}</Sample>
-              <Sample>Volume: {grocery.volume}</Sample>
-              <Sample>Quantity: {grocery.quantity}</Sample>
-              <Sample>Desciption: {grocery.description}</Sample>
+              <Sample>Product: {items.product}</Sample>
+              <Sample>Volume: {items.volume}</Sample>
+              <Sample>Quantity: {items.quantity}</Sample>
+              <Sample>Desciption: {items.description}</Sample>
               <Sample>
-                {formatDistanceToNow(new Date(grocery.createdAt), {
+                {formatDistanceToNow(new Date(items.createdAt), {
                   addSuffix: true,
                 })}
               </Sample>
             </div>
-          ))
-        ) : (
-          <Header value="none">No Grocery Found</Header>
-        )}
+          ))}
+
+        {!grocery && <Header value="none">{isError}</Header>}
       </div>
     </section>
   );

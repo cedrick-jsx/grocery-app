@@ -5,11 +5,19 @@ export const GroceryReducer = (state, action) => {
         ...state,
         grocery: action.payload,
       };
+
     case "USER_GROCERY":
       return {
         ...state,
         userGrocery: action.payload,
       };
+
+    case "CLEAR_GROCERY":
+      return {
+        grocery: action.payload,
+        userGrocery: action.payload,
+      };
+
     default:
       return state;
   }

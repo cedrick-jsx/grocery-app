@@ -21,9 +21,7 @@ export default function AccountDetails() {
   }, []);
 
   return (
-    <section
-      className={"flex place-content-center place-items-center p-[150px_5%]"}
-    >
+    <section className={"flex place-content-center place-items-center p-[5%]"}>
       <FormAccount
         value="details"
         userDetails={userGrocery}

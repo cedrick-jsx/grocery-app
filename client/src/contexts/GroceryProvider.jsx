@@ -6,6 +6,7 @@ export const GroceryProvider = (props) => {
   const groceryStatus = {
     GET_GROCERY: "GET_GROCERY",
     USER_GROCERY: "USER_GROCERY",
+    CLEAR_GROCERY: "CLEAR_GROCERY",
   };
 
   const [state, dispatch] = useReducer(GroceryReducer, {

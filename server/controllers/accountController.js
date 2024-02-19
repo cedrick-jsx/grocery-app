@@ -7,8 +7,8 @@ const getUserAccount = async (request, response) => {
   const { email } = request.params;
 
   try {
-    if (!email) {
-      throw Error("Invalid Account ID");
+    if (!validator.isEmail(email)) {
+      throw Error("Invalid Email");
     }
 
     const userAccount = await userModel.findOne({ email });
