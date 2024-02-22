@@ -7,6 +7,7 @@ export const UserContextProvider = (props) => {
   // const URL = "http://localhost:4000/api/";
 
   const [isError, setIsError] = useState("");
+  const [isFetching, setIsFetching] = useState(true);
 
   const [state, dispatch] = useReducer(UserReducer, {
     user: null,
@@ -18,10 +19,15 @@ export const UserContextProvider = (props) => {
   };
 
   useEffect(() => {
+    setIsFetching(true);
+
     const userLog = JSON.parse(sessionStorage.getItem("userLog"));
 
     if (userLog) {
       dispatch({ type: userStatus.LOGIN, payload: userLog });
+      setIsFetching(false);
+    } else {
+      setIsFetching(false);
     }
   }, []);
 
@@ -34,6 +40,8 @@ export const UserContextProvider = (props) => {
         userStatus,
         isError,
         setIsError,
+        isFetching,
+        setIsFetching,
       }}
     >
       {props.children}

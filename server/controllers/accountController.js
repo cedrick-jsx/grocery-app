@@ -1,17 +1,23 @@
+require("dotenv").config();
 const userModel = require("../models/userModel.js");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
+const jwt = require("jsonwebtoken");
 
 const getUserAccount = async (request, response) => {
-  const { email } = request.params;
+  const { token } = request.params;
 
   try {
-    if (!validator.isEmail(email)) {
-      throw Error("Invalid Email");
+    const { id: _id } = jwt.verify(token, process.env.SECRET);
+
+    if (!mongoose.Types.ObjectId.isValid(_id)) {
+      throw Error("Invalid Token");
     }
 
-    const userAccount = await userModel.findOne({ email });
+    const userAccount = await userModel
+      .findOne({ _id })
+      .select({ _id: 1, email: 1, name: 1 });
 
     if (!userAccount) {
       throw Error("No Account Found");
@@ -36,7 +42,7 @@ const updateUserAccount = async (request, response) => {
       throw Error("Name is Empty");
     }
     if (
-      !validator.isLength(name, { min: 2, max: 50 }) ||
+      !validator.isLength(name, { min: 2, max: 20 }) ||
       !validator.isAlpha(name.replace(/[-' ]/g, ""))
     ) {
       throw Error("Invalid Name");
@@ -70,7 +76,7 @@ const updateUserAccount = async (request, response) => {
       throw Error("No Account Found");
     }
 
-    response.status(200).json(userAccount.name);
+    response.status(200).json(userAccount);
   } catch (err) {
     response.status(400).json({ error: err.message });
   }

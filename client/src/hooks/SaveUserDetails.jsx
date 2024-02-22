@@ -7,8 +7,8 @@ export const SaveUserDetails = (
   setEditUser,
   URL,
   user,
-  dispatch,
-  userStatus,
+  groceryDispatch,
+  groceryStatus,
   setIsError,
   setPassword
 ) => {
@@ -20,18 +20,13 @@ export const SaveUserDetails = (
       password,
     })
     .then((response) => {
-      const tempUser = JSON.parse(sessionStorage.getItem("userLog"));
-      const updateUser = {
-        email: tempUser.email,
-        name: response.data,
-        token: tempUser.token,
-      };
-
-      dispatch({ type: userStatus.LOGIN, payload: updateUser });
-
-      sessionStorage.setItem("userLog", JSON.stringify(updateUser));
+      groceryDispatch({
+        type: groceryStatus.USER_GROCERY,
+        payload: response.data,
+      });
 
       setIsError("Success");
+
       setTimeout(() => {
         setEditUser(false);
         setIsError("");

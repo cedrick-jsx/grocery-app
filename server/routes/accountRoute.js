@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.use(userAuthentication);
 
-router.get("/:email", getUserAccount);
+router.get("/:token", getUserAccount);
 router.patch("/:id", updateUserAccount);
 
 module.exports = router;

@@ -6,7 +6,7 @@ export const LoginUser = (
   password,
   isLogin,
   navigate,
-  dispatch,
+  userDispatch,
   URL,
   userStatus,
   setIsError
@@ -18,7 +18,7 @@ export const LoginUser = (
     )
     .then((response) => {
       if (isLogin) {
-        dispatch({
+        userDispatch({
           type: userStatus.LOGIN,
           payload: response.data,
         });

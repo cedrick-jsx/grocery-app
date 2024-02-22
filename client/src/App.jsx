@@ -7,40 +7,47 @@ import { UserContext } from "./contexts/CreatedContext";
 import { AddGrocery } from "./pages/AddGrocery";
 import AccountDetails from "./pages/AccountDetails";
 import { ViewGroceryList } from "./pages/ViewGroceryList";
+import { FetchingData } from "./components/FetchingData";
 
 export default function App() {
-  const { user } = useContext(UserContext);
+  const { user, isFetching } = useContext(UserContext);
 
   return (
     <BrowserRouter>
       {user && <NavBar />}
 
-      <Routes>
-        <Route
-          path="/"
-          element={user ? <Home /> : <Navigate to="/account" />}
-        />
+      {isFetching ? (
+        <FetchingData />
+      ) : (
+        <>
+          <Routes>
+            <Route
+              path="/"
+              element={user ? <Home /> : <Navigate to="/account" />}
+            />
 
-        <Route
-          path="/account"
-          element={!user ? <Account /> : <Navigate to="/" />}
-        />
+            <Route
+              path="/account"
+              element={!user ? <Account /> : <Navigate to="/" />}
+            />
 
-        <Route
-          path="/view"
-          element={user ? <ViewGroceryList /> : <Navigate to="/" />}
-        />
+            <Route
+              path="/view"
+              element={user ? <ViewGroceryList /> : <Navigate to="/" />}
+            />
 
-        <Route
-          path="/add"
-          element={user ? <AddGrocery /> : <Navigate to="/" />}
-        />
+            <Route
+              path="/add"
+              element={user ? <AddGrocery /> : <Navigate to="/" />}
+            />
 
-        <Route
-          path="/information"
-          element={user ? <AccountDetails /> : <Navigate to="/" />}
-        />
-      </Routes>
+            <Route
+              path="/information"
+              element={user ? <AccountDetails /> : <Navigate to="/" />}
+            />
+          </Routes>
+        </>
+      )}
     </BrowserRouter>
   );
 }

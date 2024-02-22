@@ -2,7 +2,8 @@ const grocerySchema = require("../models/groceryModel.js");
 const mongoose = require("mongoose");
 
 const postUserGrocery = async (request, response) => {
-  const { product, volume, quantity, description, user_id } = request.body;
+  const { product, volume, quantity, description, user_id, is_done } =
+    request.body;
 
   try {
     if (!product && !volume && !quantity && !description) {
@@ -38,6 +39,9 @@ const postUserGrocery = async (request, response) => {
     if (!description && product && volume && quantity) {
       throw Error("Description is Empty");
     }
+    if (quantity < 1) {
+      throw Error("Quantity atleast 1");
+    }
     if (!mongoose.Types.ObjectId.isValid(user_id)) {
       throw Error("Invalid ID");
     }
@@ -48,6 +52,7 @@ const postUserGrocery = async (request, response) => {
       quantity,
       description,
       user_id,
+      is_done,
     });
 
     response.status(200).json(grocery);
@@ -68,7 +73,7 @@ const getUserGrocery = async (request, response) => {
       .find({ user_id: id })
       .sort({ createdAt: -1 });
 
-    if (!grocery || grocery.length === 0) {
+    if (grocery.length === 0) {
       throw Error("No Grocery Found");
     }
 
@@ -115,6 +120,9 @@ const updateUserGrocery = async (request, response) => {
     }
     if (!description && product && volume && quantity) {
       throw Error("Description is Empty");
+    }
+    if (quantity < 1) {
+      throw Error("Quantity atleast 1");
     }
     if (!mongoose.Types.ObjectId.isValid(id)) {
       throw Error("Invalid ID");

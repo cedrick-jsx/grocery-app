@@ -41,7 +41,7 @@ export default function Account() {
           >
             {isLogin ? "No Account Yet? " : "Account Ready? "}
 
-            {isError !== "Success" && (
+            {isError !== "Success" && isError !== "Connecting" && (
               <span
                 className={
                   "underline cursor-pointer text-[#45FFCA] drop-shadow-slogan"
@@ -103,7 +103,7 @@ export default function Account() {
 
       <div
         className={
-          "bg-login bg-right bg-contain bg-no-repeat bg-fixed min-h-screen h-screen w-2/4 relative"
+          "bg-login bg-right bg-contain bg-no-repeat bg-fixed min-h-screen h-screen w-2/4"
         }
       ></div>
     </section>

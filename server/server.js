@@ -5,7 +5,6 @@ const mongoose = require("mongoose");
 const userRoute = require("./routes/userRoute.js");
 const accountRoute = require("./routes/accountRoute.js");
 const groceryRoute = require("./routes/groceryRoute.js");
-const process = require("process");
 
 const app = express();
 
@@ -26,7 +25,6 @@ mongoose
   })
   .catch((err) => {
     console.log(err);
-    process.exitCode = 1;
   });
 
 module.exports = app;

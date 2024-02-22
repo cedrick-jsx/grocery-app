@@ -23,9 +23,11 @@ export const SaveGroceryList = (
       quantity,
       description,
       user_id: userDetails._id,
+      is_done: false,
     })
     .then(() => {
       setIsError("Success");
+
       setTimeout(() => {
         setProduct("");
         setVolume("");

@@ -1,20 +1,50 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "./Header";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GroceryContext, UserContext } from "../contexts/CreatedContext";
 import { useNavigate } from "react-router";
+import axios from "axios";
 
 export default function NavBar() {
   const {
     user,
     dispatch: userDispatch,
+    URL,
     userStatus,
     setIsError,
   } = useContext(UserContext);
-  const { dispatch: groceryDispatch, groceryStatus } =
-    useContext(GroceryContext);
+  const {
+    userGrocery,
+    dispatch: groceryDispatch,
+    groceryStatus,
+  } = useContext(GroceryContext);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsError("");
+
+    if (user) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
+
+      axios
+        .get(URL + "account/" + user.token)
+        .then((response) => {
+          groceryDispatch({
+            type: groceryStatus.USER_GROCERY,
+            payload: response.data,
+          });
+        })
+        .catch((err) => {
+          console.log(err.response.data.message);
+        });
+    } else if (isLoading) {
+      if (user) {
+        setIsLoading(false);
+      }
+    }
+  }, [user, groceryDispatch]);
 
   return (
     <nav
@@ -32,7 +62,7 @@ export default function NavBar() {
             navigate("/information");
           }}
         >
-          {user.name}
+          {userGrocery ? userGrocery.name : ""}
         </span>
 
         <button

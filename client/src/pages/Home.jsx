@@ -1,25 +1,12 @@
 import { useContext, useEffect } from "react";
 import Card from "../components/Card";
-import { GroceryContext, UserContext } from "../contexts/CreatedContext";
-import axios from "axios";
+import { UserContext } from "../contexts/CreatedContext";
 
 export default function Home() {
-  const { user, URL, setIsError } = useContext(UserContext);
-  const { dispatch, groceryStatus } = useContext(GroceryContext);
+  const { setIsError } = useContext(UserContext);
 
   useEffect(() => {
     setIsError("");
-
-    axios.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
-
-    axios
-      .get(URL + "account/" + user.email)
-      .then((response) => {
-        dispatch({ type: groceryStatus.USER_GROCERY, payload: response.data });
-      })
-      .catch((err) => {
-        setIsError(err.response.data.error);
-      });
   }, []);
 
   return (

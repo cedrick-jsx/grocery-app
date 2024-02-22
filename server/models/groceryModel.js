@@ -22,6 +22,10 @@ const grocerySchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    is_done: {
+      type: Boolean,
+      required: true,
+    },
   },
   { timestamps: true }
 );

@@ -4,12 +4,6 @@ const bcrypt = require("bcrypt");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
 
-const createToken = (_id) => {
-  return jwt.sign({ _id }, process.env.SECRET, {
-    expiresIn: "1d",
-  });
-};
-
 const signupUser = async (request, response) => {
   const { email, name, password } = request.body;
 
@@ -54,11 +48,17 @@ const signupUser = async (request, response) => {
 
     const hash = await bcrypt.hash(password, 10);
 
-    const user = await userModel.create({ email, name, password: hash });
+    const user = await userModel.create({
+      email,
+      name,
+      password: hash,
+    });
 
-    const token = createToken(user._id);
-
-    response.status(200).json({ email, name, token });
+    response.status(200).json({
+      message: "Registration Successful",
+      email: user.email,
+      name: user.name,
+    });
   } catch (err) {
     response.status(400).json({ error: err.message });
   }
@@ -66,7 +66,6 @@ const signupUser = async (request, response) => {
 
 const loginUser = async (request, response) => {
   const { email, password } = request.body;
-  let user = "";
 
   try {
     if (!email && !password) {
@@ -79,7 +78,7 @@ const loginUser = async (request, response) => {
       throw Error("Password is Empty");
     }
 
-    user = await userModel.findOne({ email });
+    const user = await userModel.findOne({ email });
 
     if (!user) {
       throw Error("Email does not exist");
@@ -91,11 +90,14 @@ const loginUser = async (request, response) => {
       throw Error("Incorrect Password");
     }
 
-    const token = createToken(user._id);
+    const token = jwt.sign({ id: user._id }, process.env.SECRET, {
+      expiresIn: "1d",
+    });
 
-    const name = user.name;
-
-    response.status(200).json({ email, name, token });
+    response.status(200).json({
+      message: "Login Successful",
+      token,
+    });
   } catch (err) {
     response.status(400).json({ error: err.message });
   }
