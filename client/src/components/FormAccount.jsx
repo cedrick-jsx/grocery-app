@@ -30,7 +30,7 @@ export default function FormAccount(props) {
           : props.value === "add"
           ? "bg-sky-400 p-[80px_20px_40px_20px]"
           : props.value === "view" &&
-            "bg-sky-400 w-full p-[20px_20px_40px_20px]"
+            "bg-sky-200 outline-0 w-full p-[20px_20px_40px_20px]"
       } flex flex-col flex-nowrap relative rounded outline outline-2 outline-[#0E185F] [box-shadow:rgba(0,0,0,0.35)_0px_5px_15px] transition-all w-[400px]`}
       onSubmit={(e) => {
         e.preventDefault();

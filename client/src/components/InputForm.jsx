@@ -40,7 +40,7 @@ export default function InputForm(props) {
               props.text === "volume" ||
               props.text === "many" ||
               props.text === "info") &&
-            "disabled:border-sky-600 disabled:bg-sky-500 disabled:text-sky-950"
+            "disabled:border-sky-500 disabled:bg-sky-300 disabled:text-sky-950"
           } border-slate-50 placeholder:text-green-700 placeholder:font-light focus:outline-none focus:ring-1 focus:ring-green-950 focus:border-green-950 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 w-full text-[1.2rem] leading-[2] p-[0_10px_0_40px] border-2 text-green-950 font-medium transition-all`}
           onChange={(e) => {
             props.setUser(() => e.target.value);

@@ -10,6 +10,7 @@ import InputForm from "../components/InputForm";
 import SpanError from "../components/SpanError";
 import { UpdateGroceryList } from "../hooks/UpdateGroceryList";
 import { DeleteGroceryList } from "../hooks/DeleteGroceryList";
+import { Buttons } from "../components/Buttons";
 
 export const ViewGroceryList = () => {
   const { user, URL, isError, setIsError, isFetching, setIsFetching } =
@@ -162,7 +163,7 @@ export const ViewGroceryList = () => {
                   />
 
                   {(!editUser || tempId !== items._id) && (
-                    <div className="mt-5 text-center">
+                    <div className="mt-5 mb-7 text-center">
                       <LabelForm>
                         {formatDistanceToNow(new Date(items.createdAt), {
                           addSuffix: true,
@@ -184,13 +185,14 @@ export const ViewGroceryList = () => {
                       className={`${
                         items.is_done
                           ? "place-content-end"
-                          : "place-content-evenly "
-                      } flex place-items-center w-full`}
+                          : "place-content-evenly"
+                      } flex place-items-center w-full absolute bottom-2 left-0 px-5`}
                     >
                       {!items.is_done && (
                         <>
-                          <button
-                            onClick={() => {
+                          <Buttons
+                            type="edit"
+                            submit={() => {
                               setIsError("");
                               setTempId(items._id);
                               setProduct(items.product);
@@ -199,11 +201,11 @@ export const ViewGroceryList = () => {
                               setDescription(items.description);
                               setEditUser(true);
                             }}
-                          >
-                            Ed
-                          </button>
-                          <button
-                            onClick={() => {
+                          ></Buttons>
+
+                          <Buttons
+                            type="done"
+                            submit={() => {
                               setIsError("Connecting");
                               setTempId("");
 
@@ -222,13 +224,13 @@ export const ViewGroceryList = () => {
                                 setTempId,
                               });
                             }}
-                          >
-                            Don
-                          </button>
+                          ></Buttons>
                         </>
                       )}
-                      <button
-                        onClick={() => {
+
+                      <Buttons
+                        type="delete"
+                        submit={() => {
                           setIsError("Connecting");
                           setTempId("");
 
@@ -247,7 +249,7 @@ export const ViewGroceryList = () => {
                         }}
                       >
                         Del
-                      </button>
+                      </Buttons>
                     </div>
                   )}
                 </FormAccount>
