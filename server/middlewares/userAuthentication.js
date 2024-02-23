@@ -12,9 +12,13 @@ const userAuthentication = async (request, response, next) => {
 
     const token = authorization.split(" ")[1];
 
-    const { _id } = jwt.verify(token, process.env.SECRET);
+    const { id: _id } = jwt.verify(token, process.env.SECRET);
 
-    request.userModel = await userModel.findOne({ _id }).select({ _id: 1 });
+    const isValid = await userModel.findById(_id).select({ _id: 1 });
+
+    if (!isValid) {
+      throw Error("Invalid Token");
+    }
 
     next();
   } catch (err) {

@@ -31,7 +31,7 @@ const signupUser = async (request, response) => {
       throw Error("Invalid Email");
     }
     if (
-      !validator.isLength(name, { min: 2, max: 50 }) ||
+      !validator.isLength(name, { min: 2, max: 20 }) ||
       !validator.isAlpha(name.replace(/[-' ]/g, ""))
     ) {
       throw Error("Invalid Name");

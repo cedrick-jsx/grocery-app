@@ -4,9 +4,11 @@ import { useNavigate } from "react-router";
 import { LoginUser } from "../hooks/LoginUser";
 import { SaveUserDetails } from "../hooks/SaveUserDetails";
 import { SaveGroceryList } from "../hooks/SaveGroceryList";
+import { UpdateGroceryList } from "../hooks/UpdateGroceryList";
 
 export default function FormAccount(props) {
-  const navigate = useNavigate("");
+  const navigate = useNavigate();
+
   const {
     user,
     dispatch: userDispatch,
@@ -14,6 +16,7 @@ export default function FormAccount(props) {
     userStatus,
     setIsError,
   } = useContext(UserContext);
+
   const { dispatch: groceryDispatch, groceryStatus } =
     useContext(GroceryContext);
 
@@ -26,7 +29,8 @@ export default function FormAccount(props) {
           ? "bg-sky-400 p-[80px_20px_40px_20px]"
           : props.value === "add"
           ? "bg-sky-400 p-[80px_20px_40px_20px]"
-          : props.value === "view" && "bg-sky-400 w-full p-5"
+          : props.value === "view" &&
+            "bg-sky-400 w-full p-[20px_20px_40px_20px]"
       } flex flex-col flex-nowrap relative rounded outline outline-2 outline-[#0E185F] [box-shadow:rgba(0,0,0,0.35)_0px_5px_15px] transition-all w-[400px]`}
       onSubmit={(e) => {
         e.preventDefault();
@@ -47,6 +51,7 @@ export default function FormAccount(props) {
             );
             break;
           }
+
           case "details": {
             if (!props.editUser) {
               props.setEditUser(!props.editUser);
@@ -67,6 +72,7 @@ export default function FormAccount(props) {
             }
             break;
           }
+
           case "add": {
             SaveGroceryList(
               props.userDetails,
@@ -84,6 +90,27 @@ export default function FormAccount(props) {
             );
             break;
           }
+
+          case "view": {
+            if (props.editUser && props.tempId === props.currentId) {
+              UpdateGroceryList({
+                user,
+                URL,
+                temp: props.tempId,
+                setIsError,
+                product: props.product,
+                volume: props.volume,
+                quantity: props.quantity,
+                description: props.description,
+                is_done: false,
+                setEditUser: props.setEditUser,
+                UpdateList: props.UpdateList,
+                setTempId: props.setTempId,
+              });
+            }
+            break;
+          }
+
           default:
             return null;
         }

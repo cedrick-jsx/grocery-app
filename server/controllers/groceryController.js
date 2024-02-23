@@ -73,7 +73,7 @@ const getUserGrocery = async (request, response) => {
       .find({ user_id: id })
       .sort({ createdAt: -1 });
 
-    if (grocery.length === 0) {
+    if (!grocery || grocery.length === 0) {
       throw Error("No Grocery Found");
     }
 
