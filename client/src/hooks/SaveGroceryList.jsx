@@ -34,7 +34,7 @@ export const SaveGroceryList = (
         setQuantity("");
         setDescription("");
         setIsError("");
-      }, 1000);
+      }, 300);
     })
     .catch((err) => {
       setIsError(err.response.data.error);

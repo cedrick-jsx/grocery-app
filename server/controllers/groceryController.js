@@ -73,7 +73,7 @@ const getUserGrocery = async (request, response) => {
       .find({ user_id: id })
       .sort({ createdAt: -1 });
 
-    if (!grocery || grocery.length === 0) {
+    if (grocery.length === 0) {
       throw Error("No Grocery Found");
     }
 
@@ -85,47 +85,49 @@ const getUserGrocery = async (request, response) => {
 
 const updateUserGrocery = async (request, response) => {
   const { id } = request.params;
-  const { product, volume, quantity, description } = request.body;
+  const { product, volume, quantity, description, is_done } = request.body;
 
   try {
-    if (!product && !volume && !quantity && !description) {
-      throw Error("All Fields are Empty");
-    }
-    if (
-      (product && !volume && !quantity && !description) ||
-      (!product && volume && !quantity && !description) ||
-      (!product && !volume && quantity && !description) ||
-      (!product && !volume && !quantity && description)
-    ) {
-      throw Error("3 Fields are Empty");
-    }
-    if (
-      (product && volume && !quantity && !description) ||
-      (!product && !volume && quantity && description) ||
-      (product && !volume && !quantity && description) ||
-      (!product && volume && quantity && !description) ||
-      (!product && volume && !quantity && description) ||
-      (product && !volume && quantity && !description)
-    ) {
-      throw Error("2 Fields are Empty");
-    }
-    if (!product && volume && quantity && description) {
-      throw Error("Product is Empty");
-    }
-    if (!volume && product && quantity && description) {
-      throw Error("Volume is Empty");
-    }
-    if (!quantity && product && volume && description) {
-      throw Error("Quantity is Empty");
-    }
-    if (!description && product && volume && quantity) {
-      throw Error("Description is Empty");
-    }
-    if (quantity < 1) {
-      throw Error("Quantity atleast 1");
-    }
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      throw Error("Invalid ID");
+    if (!is_done) {
+      if (!product && !volume && !quantity && !description) {
+        throw Error("All Fields are Empty");
+      }
+      if (
+        (product && !volume && !quantity && !description) ||
+        (!product && volume && !quantity && !description) ||
+        (!product && !volume && quantity && !description) ||
+        (!product && !volume && !quantity && description)
+      ) {
+        throw Error("3 Fields are Empty");
+      }
+      if (
+        (product && volume && !quantity && !description) ||
+        (!product && !volume && quantity && description) ||
+        (product && !volume && !quantity && description) ||
+        (!product && volume && quantity && !description) ||
+        (!product && volume && !quantity && description) ||
+        (product && !volume && quantity && !description)
+      ) {
+        throw Error("2 Fields are Empty");
+      }
+      if (!product && volume && quantity && description) {
+        throw Error("Product is Empty");
+      }
+      if (!volume && product && quantity && description) {
+        throw Error("Volume is Empty");
+      }
+      if (!quantity && product && volume && description) {
+        throw Error("Quantity is Empty");
+      }
+      if (!description && product && volume && quantity) {
+        throw Error("Description is Empty");
+      }
+      if (quantity < 1) {
+        throw Error("Quantity atleast 1");
+      }
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        throw Error("Invalid ID");
+      }
     }
 
     const grocery = await grocerySchema.findByIdAndUpdate(id, request.body, {

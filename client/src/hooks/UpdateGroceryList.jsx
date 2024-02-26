@@ -33,7 +33,7 @@ export const UpdateGroceryList = ({
         setEditUser(false);
         setIsError("");
         setTempId("");
-      }, 1000);
+      }, 300);
     })
     .catch((err) => {
       setIsError(err.response.data.error);

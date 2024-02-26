@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { GroceryContext, UserContext } from "../contexts/CreatedContext";
 import axios from "axios";
 import Header from "../components/Header";
@@ -8,9 +8,9 @@ import LabelForm from "../components/LabelForm";
 import FormAccount from "../components/FormAccount";
 import InputForm from "../components/InputForm";
 import SpanError from "../components/SpanError";
-import { UpdateGroceryList } from "../hooks/UpdateGroceryList";
 import { DeleteGroceryList } from "../hooks/DeleteGroceryList";
 import { Buttons } from "../components/Buttons";
+import { DoneGroceryList } from "../hooks/DoneGroceryList";
 
 export const ViewGroceryList = () => {
   const { user, URL, isError, setIsError, isFetching, setIsFetching } =
@@ -30,8 +30,12 @@ export const ViewGroceryList = () => {
   const [quantity, setQuantity] = useState("");
   const [description, setDescription] = useState("");
   const [editUser, setEditUser] = useState(false);
+  const [editGrocery, setEditGrocery] = useState("");
+  const [editId, setEditId] = useState(null);
 
-  const UpdateList = () => {
+  const doneDelete = useRef(false);
+
+  const UpdateList = (props) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
 
     axios
@@ -43,6 +47,19 @@ export const ViewGroceryList = () => {
         });
 
         setIsLoading(false);
+        console.log(doneDelete.current);
+        if (editUser && tempId && !doneDelete.current) {
+          console.log("pasok");
+          setEditUser(false);
+          setIsError("");
+          setTempId("");
+        } else if (doneDelete.current) {
+          console.log("labas");
+          setIsError("");
+          setEditGrocery("");
+          setEditId(null);
+          doneDelete.current = false;
+        }
       })
       .catch((err) => {
         setIsError(err.response.data.error);
@@ -91,6 +108,8 @@ export const ViewGroceryList = () => {
                   description={description}
                   UpdateList={UpdateList}
                   setTempId={setTempId}
+                  editGrocery={editGrocery}
+                  setEditGrocery={setEditGrocery}
                 >
                   <LabelForm>Product</LabelForm>
                   <InputForm
@@ -163,11 +182,17 @@ export const ViewGroceryList = () => {
                   />
 
                   {(!editUser || tempId !== items._id) && (
-                    <div className="mt-5 mb-7 text-center">
-                      <LabelForm>
-                        {formatDistanceToNow(new Date(items.createdAt), {
-                          addSuffix: true,
-                        })}
+                    <div className={`mt-5 mb-7 text-center`}>
+                      <LabelForm
+                        value={editGrocery}
+                        editId={editId}
+                        itemId={items._id}
+                      >
+                        {editGrocery && editId === items._id
+                          ? editGrocery
+                          : formatDistanceToNow(new Date(items.createdAt), {
+                              addSuffix: true,
+                            })}
                       </LabelForm>
                     </div>
                   )}
@@ -185,6 +210,8 @@ export const ViewGroceryList = () => {
                       className={`${
                         items.is_done
                           ? "place-content-end"
+                          : editGrocery
+                          ? "hidden"
                           : "place-content-evenly"
                       } flex place-items-center w-full absolute bottom-2 left-0 px-5`}
                     >
@@ -206,50 +233,49 @@ export const ViewGroceryList = () => {
                           <Buttons
                             type="done"
                             submit={() => {
-                              setIsError("Connecting");
-                              setTempId("");
+                              setEditGrocery("Connecting");
+                              setEditId(items._id);
+                              doneDelete.current = true;
 
-                              UpdateGroceryList({
+                              DoneGroceryList({
                                 user,
                                 URL,
                                 temp: items._id,
                                 setIsError,
-                                product: items.product,
-                                volume: items.volume,
-                                quantity: items.quantity,
-                                description: items.description,
                                 is_done: true,
-                                setEditUser,
                                 UpdateList,
-                                setTempId,
+                                editGrocery,
                               });
                             }}
                           ></Buttons>
                         </>
                       )}
 
-                      <Buttons
-                        type="delete"
-                        submit={() => {
-                          setIsError("Connecting");
-                          setTempId("");
+                      {!editGrocery && editId !== items._id && (
+                        <Buttons
+                          type="delete"
+                          submit={() => {
+                            setEditGrocery("Connecting");
+                            setEditId(items._id);
+                            doneDelete.current = true;
 
-                          DeleteGroceryList({
-                            user,
-                            URL,
-                            deleteId: items._id,
-                            UpdateList,
-                            setIsError,
-                            setIsFetching,
-                            items: grocery,
-                            groceryDispatch,
-                            groceryStatus,
-                            setTempId,
-                          });
-                        }}
-                      >
-                        Del
-                      </Buttons>
+                            DeleteGroceryList({
+                              user,
+                              URL,
+                              deleteId: items._id,
+                              UpdateList,
+                              setIsError,
+                              setIsFetching,
+                              items: grocery,
+                              groceryDispatch,
+                              groceryStatus,
+                              setEditGrocery,
+                            });
+                          }}
+                        >
+                          Del
+                        </Buttons>
+                      )}
                     </div>
                   )}
                 </FormAccount>

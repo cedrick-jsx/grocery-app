@@ -30,7 +30,7 @@ export const LoginUser = (
         setTimeout(() => {
           setIsError("");
           navigate("/");
-        }, 1000);
+        }, 300);
       }
     })
     .catch((err) => {

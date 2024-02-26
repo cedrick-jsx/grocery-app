@@ -31,7 +31,7 @@ export const SaveUserDetails = (
         setEditUser(false);
         setIsError("");
         setPassword("");
-      }, 1000);
+      }, 300);
     })
     .catch((err) => {
       setIsError(err.response.data.error);

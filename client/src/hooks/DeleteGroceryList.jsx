@@ -10,7 +10,7 @@ export const DeleteGroceryList = ({
   items,
   groceryDispatch,
   groceryStatus,
-  setTempId,
+  setEditGrocery,
 }) => {
   axios.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
 
@@ -19,23 +19,25 @@ export const DeleteGroceryList = ({
     .then(() => {
       if (items.length > 1) {
         UpdateList();
-        setIsError("");
-        setTempId("");
+        // setEditGrocery("Connecting");
+        // UpdateList();
       } else {
-        setIsFetching(true);
+        // setIsFetching(true);
 
         groceryDispatch({
           type: groceryStatus.GET_GROCERY,
           payload: null,
         });
 
-        setTimeout(() => {
-          setIsFetching(false);
-          setIsError("");
-          setTempId("");
-        }, 1000);
+        UpdateList();
+        // setTimeout(() => {
+        //   setIsFetching(false);
+
+        //   setIsError("");
+
+        //   setEditGrocery("");
+        // }, 300);
       }
-      setIsError("");
     })
     .catch((err) => console.log(err));
 };
