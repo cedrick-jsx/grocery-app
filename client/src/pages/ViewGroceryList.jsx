@@ -35,7 +35,7 @@ export const ViewGroceryList = () => {
 
   const doneDelete = useRef(false);
 
-  const UpdateList = (props) => {
+  const UpdateList = () => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
 
     axios
@@ -47,15 +47,12 @@ export const ViewGroceryList = () => {
         });
 
         setIsLoading(false);
-        console.log(doneDelete.current);
+
         if (editUser && tempId && !doneDelete.current) {
-          console.log("pasok");
           setEditUser(false);
           setIsError("");
           setTempId("");
         } else if (doneDelete.current) {
-          console.log("labas");
-          setIsError("");
           setEditGrocery("");
           setEditId(null);
           doneDelete.current = false;
@@ -199,7 +196,7 @@ export const ViewGroceryList = () => {
 
                   {editUser && tempId === items._id && (
                     <>
-                      <InputForm type="submit" value="save" />
+                      <InputForm type="submit" value="save" isError={isError} />
 
                       {isError && <SpanError type="error">{isError}</SpanError>}
                     </>
@@ -241,7 +238,6 @@ export const ViewGroceryList = () => {
                                 user,
                                 URL,
                                 temp: items._id,
-                                setIsError,
                                 is_done: true,
                                 UpdateList,
                                 editGrocery,
@@ -270,6 +266,8 @@ export const ViewGroceryList = () => {
                               groceryDispatch,
                               groceryStatus,
                               setEditGrocery,
+                              setEditId,
+                              doneDelete,
                             });
                           }}
                         >

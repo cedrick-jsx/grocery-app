@@ -30,11 +30,14 @@ export default function FormAccount(props) {
           : props.value === "add"
           ? "bg-sky-400 p-[80px_20px_40px_20px]"
           : props.value === "view" &&
-            "bg-sky-200 outline-transparent w-full p-[20px_20px_40px_20px]"
+            "bg-sky-200 outline-transparent w-full p-[20px_20px_38.5px_20px]"
       } flex flex-col flex-nowrap relative rounded outline outline-2 outline-[#0E185F] [box-shadow:rgba(0,0,0,0.35)_0px_5px_15px] transition-all w-[400px]`}
       onSubmit={(e) => {
         e.preventDefault();
-        setIsError("Connecting");
+
+        if (props.value !== "view" && props.editGrocery !== "") {
+          setIsError("Connecting");
+        }
 
         switch (props.value) {
           case "login": {
@@ -93,7 +96,6 @@ export default function FormAccount(props) {
 
           case "view": {
             if (props.editGrocery === "") {
-              console.log(props.editGrocery);
               UpdateGroceryList({
                 user,
                 URL,

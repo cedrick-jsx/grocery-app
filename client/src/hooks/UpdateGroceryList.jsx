@@ -25,6 +25,8 @@ export const UpdateGroceryList = ({
       is_done,
     })
     .then((response) => {
+      setIsError("Success");
+
       UpdateList();
 
       setIsError("Success");
