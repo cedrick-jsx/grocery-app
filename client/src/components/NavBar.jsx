@@ -62,7 +62,7 @@ export default function NavBar() {
             navigate("/information");
           }}
         >
-          {userGrocery ? userGrocery.name : ""}
+          {userGrocery && userGrocery.name}
         </span>
 
         <button

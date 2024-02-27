@@ -179,7 +179,7 @@ export const ViewGroceryList = () => {
                   />
 
                   {(!editUser || tempId !== items._id) && (
-                    <div className={`mt-5 mb-7 text-center`}>
+                    <div className={`m-[15px_0_31.5px_0] text-center`}>
                       <LabelForm
                         value={editGrocery}
                         editId={editId}
@@ -202,17 +202,15 @@ export const ViewGroceryList = () => {
                     </>
                   )}
 
-                  {(!editUser || tempId !== items._id) && (
+                  {tempId !== items._id && (
                     <div
                       className={`${
                         items.is_done
                           ? "place-content-end"
-                          : editGrocery
-                          ? "hidden"
                           : "place-content-evenly"
                       } flex place-items-center w-full absolute bottom-2 left-0 px-5`}
                     >
-                      {!items.is_done && (
+                      {!items.is_done && editId !== items._id && (
                         <>
                           <Buttons
                             type="edit"
@@ -247,7 +245,7 @@ export const ViewGroceryList = () => {
                         </>
                       )}
 
-                      {!editGrocery && editId !== items._id && (
+                      {editId !== items._id && (
                         <Buttons
                           type="delete"
                           submit={() => {
