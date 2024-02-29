@@ -12,12 +12,12 @@ export default function Home() {
   return (
     <section
       className={
-        "flex flex-wrap w-full p-[5%] place-content-evenly place-items-center"
+        "grid w-full p-[5%] place-content-center place-items-center gap-10 lg:grid-cols-3 xl:grid-cols-3 xl:px-[10%] 2xl:grid-cols-3 2xl:px-[15%]"
       }
     >
       <Card value="view">View Grocery</Card>
-      <Card value="add">Add Grocery</Card>
-      <Card value="details">Account Details</Card>
+      <Card value="add">Add Goods</Card>
+      <Card value="details">User Details</Card>
     </section>
   );
 }

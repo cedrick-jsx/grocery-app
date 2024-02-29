@@ -9,23 +9,23 @@ const signupUser = async (request, response) => {
 
   try {
     if (!email && !name && !password) {
-      throw Error("All Fields are Empty");
+      throw Error("All Fields Required");
     }
     if (
       (email && !name && !password) ||
       (!email && name && !password) ||
       (!email && !name && password)
     ) {
-      throw Error("2 Fields are Empty");
+      throw Error("2 Fields Required");
     }
     if (!email && name && password) {
-      throw Error("Email is Empty");
+      throw Error("Email Required");
     }
     if (email && !name && password) {
-      throw Error("Name is Empty");
+      throw Error("Name Required");
     }
     if (email && name && !password) {
-      throw Error("Password is Empty");
+      throw Error("Password Required");
     }
     if (!validator.isEmail(email)) {
       throw Error("Invalid Email");
@@ -37,13 +37,13 @@ const signupUser = async (request, response) => {
       throw Error("Invalid Name");
     }
     if (!validator.isStrongPassword(password)) {
-      throw Error("Password is too weak");
+      throw Error("Weak Password");
     }
 
     const isEmailExist = await userModel.findOne({ email });
 
     if (isEmailExist) {
-      throw Error("Email already in use");
+      throw Error("Email in use");
     }
 
     const hash = await bcrypt.hash(password, 10);
@@ -69,19 +69,19 @@ const loginUser = async (request, response) => {
 
   try {
     if (!email && !password) {
-      throw Error("All Fields are Empty");
+      throw Error("All Fields Required");
     }
     if (!email && password) {
-      throw Error("Email is Empty");
+      throw Error("Email Required");
     }
     if (email && !password) {
-      throw Error("Password is Empty");
+      throw Error("Password Required");
     }
 
     const user = await userModel.findOne({ email });
 
     if (!user) {
-      throw Error("Email does not exist");
+      throw Error("Email doesn't exist");
     }
 
     const isPasswordMatch = await bcrypt.compare(password, user.password);

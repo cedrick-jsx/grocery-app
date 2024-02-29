@@ -54,9 +54,9 @@ export default function NavBar() {
     >
       <Header value="navbar">Grocery App</Header>
 
-      <div className="flex place-content-center place-items-center gap-3 text-[2rem] font-bold">
+      <div className="flex place-content-center place-items-center gap-5 text-[32px] font-bold 3xs:text-[8vw] 2xs:text-[25px]">
         <span
-          className={"text-green-950 cursor-pointer"}
+          className={"text-green-950 cursor-pointer 3xs:hidden 2xs:hidden"}
           onClick={() => {
             setIsError("");
             navigate("/information");
@@ -81,7 +81,7 @@ export default function NavBar() {
         >
           <FontAwesomeIcon
             icon={faRightFromBracket}
-            className={"[animation:fa-fade_1000ms_infinite]"}
+            className={"[animation:fa-fade_1000ms_infinite] transition-all"}
           />
         </button>
       </div>

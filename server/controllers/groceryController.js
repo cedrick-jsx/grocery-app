@@ -7,7 +7,7 @@ const postUserGrocery = async (request, response) => {
 
   try {
     if (!product && !volume && !quantity && !description) {
-      throw Error("All Fields are Empty");
+      throw Error("All Fields Required");
     }
     if (
       (product && !volume && !quantity && !description) ||
@@ -15,7 +15,7 @@ const postUserGrocery = async (request, response) => {
       (!product && !volume && quantity && !description) ||
       (!product && !volume && !quantity && description)
     ) {
-      throw Error("3 Fields are Empty");
+      throw Error("3 Fields Required");
     }
     if (
       (product && volume && !quantity && !description) ||
@@ -25,19 +25,19 @@ const postUserGrocery = async (request, response) => {
       (!product && volume && !quantity && description) ||
       (product && !volume && quantity && !description)
     ) {
-      throw Error("2 Fields are Empty");
+      throw Error("2 Fields Required");
     }
     if (!product && volume && quantity && description) {
-      throw Error("Product is Empty");
+      throw Error("Product Required");
     }
     if (!volume && product && quantity && description) {
-      throw Error("Volume is Empty");
+      throw Error("Volume Required");
     }
     if (!quantity && product && volume && description) {
-      throw Error("Quantity is Empty");
+      throw Error("Quantity Required");
     }
     if (!description && product && volume && quantity) {
-      throw Error("Description is Empty");
+      throw Error("Description Required");
     }
     if (quantity < 1) {
       throw Error("Quantity atleast 1");
@@ -90,7 +90,7 @@ const updateUserGrocery = async (request, response) => {
   try {
     if (!is_done) {
       if (!product && !volume && !quantity && !description) {
-        throw Error("All Fields are Empty");
+        throw Error("All Fields Required");
       }
       if (
         (product && !volume && !quantity && !description) ||
@@ -98,7 +98,7 @@ const updateUserGrocery = async (request, response) => {
         (!product && !volume && quantity && !description) ||
         (!product && !volume && !quantity && description)
       ) {
-        throw Error("3 Fields are Empty");
+        throw Error("3 Fields Required");
       }
       if (
         (product && volume && !quantity && !description) ||
@@ -108,19 +108,19 @@ const updateUserGrocery = async (request, response) => {
         (!product && volume && !quantity && description) ||
         (product && !volume && quantity && !description)
       ) {
-        throw Error("2 Fields are Empty");
+        throw Error("2 Fields Required");
       }
       if (!product && volume && quantity && description) {
-        throw Error("Product is Empty");
+        throw Error("Product Required");
       }
       if (!volume && product && quantity && description) {
-        throw Error("Volume is Empty");
+        throw Error("Volume Required");
       }
       if (!quantity && product && volume && description) {
-        throw Error("Quantity is Empty");
+        throw Error("Quantity Required");
       }
       if (!description && product && volume && quantity) {
-        throw Error("Description is Empty");
+        throw Error("Description Required");
       }
       if (quantity < 1) {
         throw Error("Quantity atleast 1");

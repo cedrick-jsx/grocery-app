@@ -79,14 +79,16 @@ export const ViewGroceryList = () => {
             "flex flex-col place-content-center place-items-center p-[5%]"
           }
         >
-          <Header value="navbar">{userGrocery.name}'s Grocery List</Header>
+          {grocery && (
+            <Header value="navbar">{userGrocery.name}'s Grocery List</Header>
+          )}
 
           <div
             className={`${
               !grocery
-                ? "flex place-content-center place-items-center"
-                : "grid grid-cols-3"
-            } w-[1100px] mt-12 gap-10`}
+                ? "flex place-items-center"
+                : "3xs:flex 3xs:flex-wrap 3xs:w-full 3xs:gap-[15vw] 2xs:flex 2xs:flex-wrap 2xs:w-full 2xs:gap-[50px] xs:flex xs:flex-wrap xs:w-full sm:flex sm:flex-wrap sm:w-full md:grid md:w-full lg:grid lg:grid-cols-2 lg:w-[1000px] lg:place-items-center xl:grid xl:grid-cols-2 xl:w-[1000px] xl:place-items-center 2xl:grid 2xl:grid-cols-3 2xl:w-[1300px] 2xl:place-items-center"
+            } place-content-center gap-[80px] mt-12`}
           >
             {grocery &&
               !isFetching &&
@@ -179,7 +181,7 @@ export const ViewGroceryList = () => {
                   />
 
                   {(!editUser || tempId !== items._id) && (
-                    <div className={`m-[15px_0_31.5px_0] text-center`}>
+                    <div className={`mt-[25px] text-center`}>
                       <LabelForm
                         value={editGrocery}
                         editId={editId}
@@ -195,11 +197,11 @@ export const ViewGroceryList = () => {
                   )}
 
                   {editUser && tempId === items._id && (
-                    <>
+                    <div className={"relative mt-8 w-full"}>
                       <InputForm type="submit" value="save" isError={isError} />
 
                       {isError && <SpanError type="error">{isError}</SpanError>}
-                    </>
+                    </div>
                   )}
 
                   {tempId !== items._id && (
@@ -208,7 +210,7 @@ export const ViewGroceryList = () => {
                         items.is_done
                           ? "place-content-end"
                           : "place-content-evenly"
-                      } flex place-items-center w-full absolute bottom-2 left-0 px-5`}
+                      } flex place-items-center w-full absolute bottom-5 left-0 px-5`}
                     >
                       {!items.is_done && editId !== items._id && (
                         <>

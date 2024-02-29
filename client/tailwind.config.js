@@ -10,7 +10,9 @@ export default {
         slogan: ["0 0 1px #0E185F", "0 0 1px #0E185F", "0 0 1px #0E185F"],
       },
       screens: {
-        xs: { max: "640px" },
+        "3xs": { max: "300px" },
+        "2xs": { min: "300px", max: "480px" },
+        xs: { min: "480px", max: "640px" },
         sm: { min: "640px", max: "768px" },
         md: { min: "768px", max: "1024px" },
         lg: { min: "1024px", max: "1280px" },

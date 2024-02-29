@@ -45,11 +45,13 @@ export default function AccountDetails() {
             password={password}
             setPassword={setPassword}
           >
-            <Header value="grocery">Account Details</Header>
+            <Header value="grocery">User Details</Header>
 
             <FontAwesomeIcon
               icon={faUserCircle}
-              className={"text-[5rem] text-green-950"}
+              className={
+                "text-green-950 text-[90px] 3xs:text-[20vw] 2xs:text-[60px]"
+              }
             />
 
             <LabelForm>Email</LabelForm>
@@ -79,13 +81,15 @@ export default function AccountDetails() {
               </>
             )}
 
-            <InputForm
-              type="submit"
-              value={editUser ? "save" : "edit"}
-              isError={isError}
-            />
+            <div className={"relative mt-8 w-full"}>
+              <InputForm
+                type="submit"
+                value={editUser ? "save" : "edit"}
+                isError={isError}
+              />
 
-            {isError && <SpanError type="error">{isError}</SpanError>}
+              {isError && <SpanError type="error">{isError}</SpanError>}
+            </div>
           </FormAccount>
         </section>
       )}

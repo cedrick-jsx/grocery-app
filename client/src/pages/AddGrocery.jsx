@@ -32,7 +32,7 @@ export const AddGrocery = () => {
         description={description}
         setDescription={setDescription}
       >
-        <Header value="grocery">Add Grocery</Header>
+        <Header value="grocery">Add Goods</Header>
 
         <LabelForm>Product</LabelForm>
         <InputForm
@@ -80,9 +80,11 @@ export const AddGrocery = () => {
           isError={isError}
         />
 
-        <InputForm type="submit" value="add" isError={isError} />
+        <div className={"relative mt-8 w-full"}>
+          <InputForm type="submit" value="add" isError={isError} />
 
-        {isError && <SpanError type="error">{isError}</SpanError>}
+          {isError && <SpanError type="error">{isError}</SpanError>}
+        </div>
       </FormAccount>
     </section>
   );

@@ -10,11 +10,12 @@ export default function Header(props) {
     <h1
       className={`${
         props.value === "grocery"
-          ? "absolute top-0 left-0 w-full text-center text-[2rem] mt-4"
+          ? "absolute top-0 left-0 w-full mt-4 3xs:text-[9vw] 2xs:text-[30px] text-[38px]"
           : props.value === "navbar"
-          ? "text-[2.5rem] cursor-pointer"
-          : props.value === "none" && "text-[5rem]"
-      } text-green-950 uppercase font-extrabold`}
+          ? "cursor-pointer 3xs:text-[9vw] 2xs:text-[30px] text-[38px]"
+          : props.value === "none" &&
+            "text-[80px] 3xs:text-[15vw] 2xs:text-[40px]"
+      } text-emerald-950 text-center uppercase font-extrabold`}
       onClick={() => {
         if (props.value === "navbar") {
           setIsError("");

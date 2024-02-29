@@ -22,7 +22,7 @@ export const Buttons = (props) => {
             : props.type === "done"
             ? "text-emerald-500"
             : props.type === "delete" && "text-red-500"
-        } rounded-full w-[30px] h-[50px] hover:scale-150 [filter:drop-shadow(-2px_-2px_1px_black)] transition-all`}
+        } hover:scale-150 [filter:drop-shadow(-2px_-2px_1px_black)] transition-all text-[35px] 3xs:text-[10vw] 2xs:text-[30px]`}
       />
     </button>
   );

@@ -39,7 +39,7 @@ const updateUserAccount = async (request, response) => {
       throw Error("No Account Found");
     }
     if (!name) {
-      throw Error("Name is Empty");
+      throw Error("Name Required");
     }
     if (
       !validator.isLength(name, { min: 2, max: 20 }) ||
@@ -48,7 +48,7 @@ const updateUserAccount = async (request, response) => {
       throw Error("Invalid Name");
     }
     if (!validator.isStrongPassword(password) && password) {
-      throw Error("Password is too weak");
+      throw Error("Weak Password");
     }
 
     if (password) {

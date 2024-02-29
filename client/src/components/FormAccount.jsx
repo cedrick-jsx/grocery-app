@@ -24,18 +24,18 @@ export default function FormAccount(props) {
     <form
       className={`${
         props.value === "login"
-          ? "bg-[#2FDD92] p-[100px_20px_2.5rem_20px]"
+          ? "bg-[#2FDD92] pt-[120px] pb-[80px] 3xs:w-[90vw] 3xs:pt-20 2xs:w-[300px] 2xs:pt-[90px]"
           : props.value === "details"
-          ? "bg-sky-400 p-[80px_20px_40px_20px]"
+          ? "bg-sky-400 pt-[80px] pb-[80px] 3xs:w-[90vw] 3xs:pt-16 2xs:w-[300px] 2xs:pt-[70px]"
           : props.value === "add"
-          ? "bg-sky-400 p-[80px_20px_40px_20px]"
+          ? "bg-sky-400 pt-[90px] pb-[80px] 3xs:w-[90vw] 3xs:pt-16 2xs:w-[300px] 2xs:pt-[70px]"
           : props.value === "view" &&
-            "bg-sky-200 outline-transparent w-full p-[20px_20px_40px_20px]"
-      } flex flex-col flex-nowrap relative rounded outline outline-2 outline-[#0E185F] [box-shadow:rgba(0,0,0,0.35)_0px_5px_15px] transition-all w-[400px]`}
+            "bg-sky-200 outline-transparent pt-[30px] 3xs:w-[90vw] 3xs:pb-[80px] 3xs:pt-5 2xs:w-[300px] 2xs:pt-[20px] 2xs:pb-[80px] xs:h-[420px] sm:h-[420px] md:h-[420px] lg:h-[420px] xl:h-[420px] 2xl:h-[420px]"
+      } flex flex-col flex-nowrap relative rounded outline outline-2 outline-[#0E185F] [box-shadow:rgba(0,0,0,0.35)_0px_5px_15px] transition-all px-[20px] w-[400px]`}
       onSubmit={(e) => {
         e.preventDefault();
 
-        if (props.value !== "view" && props.editGrocery !== "") {
+        if (props.editGrocery !== "" || props.tempId !== "") {
           setIsError("Connecting");
         }
 
