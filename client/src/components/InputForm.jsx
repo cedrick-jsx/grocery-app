@@ -20,7 +20,7 @@ export default function InputForm(props) {
       className={`${
         props.type === "submit"
           ? "group cursor-pointer absolute right-0 top-0"
-          : "relative"
+          : "relative flex"
       }`}
     >
       {props.type !== "submit" && (

@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <section
       className={
-        "grid w-full p-[5%] place-content-center place-items-center gap-10 lg:grid-cols-3 xl:grid-cols-3 xl:px-[10%] 2xl:grid-cols-3 2xl:px-[15%]"
+        "grid w-full p-[10%_5%] place-content-center place-items-center gap-10 lg:grid-cols-3 xl:grid-cols-3 xl:px-[10%] 2xl:grid-cols-3 2xl:px-[15%]"
       }
     >
       <Card value="view">View Grocery</Card>

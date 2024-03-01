@@ -4,7 +4,6 @@ import { UserContext } from "./CreatedContext";
 
 export const UserContextProvider = (props) => {
   const URL = "https://grocery-app-server.vercel.app/api/";
-  // const URL = "http://localhost:4000/api/";
 
   const [isError, setIsError] = useState("");
   const [isFetching, setIsFetching] = useState(true);

@@ -54,9 +54,11 @@ export default function NavBar() {
     >
       <Header value="navbar">Grocery App</Header>
 
-      <div className="flex place-content-center place-items-center gap-5 text-[32px] font-bold 3xs:text-[8vw] 2xs:text-[25px]">
+      <div className="flex place-content-center place-items-center gap-5 text-[32px] font-bold 3xs:text-[7vw] 2xs:text-[25px]">
         <span
-          className={"text-green-950 cursor-pointer 3xs:hidden 2xs:hidden"}
+          className={
+            "text-green-950 cursor-pointer 3xs:hidden 2xs:hidden xs:hidden"
+          }
           onClick={() => {
             setIsError("");
             navigate("/information");
